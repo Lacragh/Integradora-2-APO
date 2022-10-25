@@ -5,10 +5,10 @@ import java.util.UUID;
 public class Country {
     private String id;
     private String name;
-    private String population;
+    private double population;
 
-    public Country(String name, String population, String countryCode) {
-        this.id = String.valueOf(UUID.randomUUID());
+    public Country(String id,String name, double population, String countryCode) {
+        this.id = id;
         this.name = name;
         this.population = population;
         this.countryCode = countryCode;
@@ -30,11 +30,11 @@ public class Country {
         this.name = name;
     }
 
-    public String getPopulation() {
+    public double getPopulation() {
         return population;
     }
 
-    public void setPopulation(String population) {
+    public void setPopulation(double population) {
         this.population = population;
     }
 
