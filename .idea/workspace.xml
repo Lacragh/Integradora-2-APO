@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="Se guardan los datos en formato Gson tambien se leen">
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/FormatIncorrect.java" afterDir="false" />
+    <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="Se realiza el main ajustes">
+      <change afterPath="$PROJECT_DIR$/Cities.SQL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Countries.SQL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exceptions/NotFoundCountryID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/gson-2.9.1.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/City.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Country.java" afterDir="false" />
+    </list>
+    <list id="3d985007-44c4-45bb-af24-14c8aebcfb40" name="Changes by Luispi" comment="Changes by Luispi">
       <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
-    <list id="3d985007-44c4-45bb-af24-14c8aebcfb40" name="Changes by Luispi" comment="">
-      <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
-    </list>
-    <list id="edea331c-941b-4c02-83f6-204ce04b3704" name="Changes by USER" comment="">
+    <list id="edea331c-941b-4c02-83f6-204ce04b3704" name="Changes by USER" comment="Cambios">
       <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
@@ -35,40 +34,9 @@
     <file path="$PROJECT_DIR$/src/UI/Main.java">
       <ranges>
         <range start1="2" end1="2" start2="2" end2="4" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
-        <range start1="5" end1="5" start2="7" end2="9" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="6" end1="6" start2="10" end2="11" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="11" end1="11" start2="16" end2="18" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
-        <range start1="13" end1="13" start2="20" end2="21" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
-        <range start1="14" end1="14" start2="22" end2="23" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
-        <range start1="15" end1="17" start2="24" end2="27" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="18" end1="20" start2="28" end2="94" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="21" end1="21" start2="95" end2="108" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="23" end1="23" start2="110" end2="111" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="24" end1="25" start2="112" end2="113" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/Model/Controller.java">
-      <ranges>
-        <range start1="1" end1="1" start2="1" end2="3" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="12" end1="12" start2="14" end2="15" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="16" end1="16" start2="19" end2="20" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="19" end1="20" start2="23" end2="24" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="21" end1="22" start2="25" end2="26" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="24" end1="35" start2="28" end2="57" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="39" end1="41" start2="61" end2="65" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="43" end1="43" start2="67" end2="72" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="44" end1="58" start2="73" end2="91" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="60" end1="60" start2="93" end2="96" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="66" end1="67" start2="102" end2="102" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="68" end1="70" start2="103" end2="106" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="77" end1="77" start2="113" end2="130" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="78" end1="78" start2="131" end2="136" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="80" end1="82" start2="138" end2="140" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="92" end1="93" start2="150" end2="151" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="96" end1="97" start2="154" end2="158" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="105" end1="105" start2="166" end2="171" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
-        <range start1="106" end1="106" start2="172" end2="177" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
-        <range start1="107" end1="108" start2="178" end2="184" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
+        <range start1="14" end1="14" start2="16" end2="18" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="16" end1="16" start2="20" end2="21" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
+        <range start1="17" end1="17" start2="22" end2="23" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
       </ranges>
     </file>
   </component>
@@ -125,7 +93,7 @@
       <updated>1666643697119</updated>
       <workItem from="1666643698603" duration="12019000" />
       <workItem from="1666732043961" duration="3406000" />
-      <workItem from="1666997701179" duration="7957000" />
+      <workItem from="1666997701179" duration="8576000" />
     </task>
     <task id="LOCAL-00001" summary="Clases principales creadas y atributos">
       <created>1666646216680</created>
@@ -141,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666660430685</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Se realiza el main ajustes">
+      <created>1667005973558</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667005973558</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,7 +136,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Clases principales creadas y atributos" />
     <MESSAGE value="Se guardan los datos en formato Gson tambien se leen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se guardan los datos en formato Gson tambien se leen" />
+    <MESSAGE value="Se realiza el main ajustes" />
+    <MESSAGE value="Changes by USER" />
+    <MESSAGE value="Si" />
+    <MESSAGE value="Cambios" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,0 +1,3 @@
+[{"id":" \u00276ec3e8ec-3dd0-11ed-b878-0242ac120002\u0027","name":" \u0027Colombia\u0027","population":50.2,"countryCode":" \u0027+57\u0027"},
+{"id":" \u00276ec3e8ec-3dd0-11ed-b878-0242ac12000212313212\u0027","name":" \u0027Cum\u0027","population":50.2,"countryCode":" \u0027+5\u0027"},
+{"id":" \u00276ec3e8ec-3dd0-11ed-b878-0242ac12012002\u0027","name":" \u0027Chipre\u0027","population":50.2,"countryCode":" \u0027+570\u0027"
