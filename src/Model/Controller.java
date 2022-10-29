@@ -162,9 +162,24 @@ public class Controller {
         }
     }
 
+    public static void loadMemory() throws IOException{
+        FileInputStream fis = new FileInputStream("program.json");
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(fis)
+        );
 
+        String json = "";
+        String line = "";
+        while ((line = reader.readLine()) != null){
+            json += line;
+        }
 
-
+        Gson gson = new Gson();
+        Country[] data = gson.fromJson(json, Country[].class);
+        for (int i=0 ; i<data.length ; i++){
+            countries.add(data[i]);
+        }
+    }
 
 
 
