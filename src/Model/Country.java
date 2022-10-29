@@ -6,6 +6,7 @@ public class Country {
     private String id;
     private String name;
     private double population;
+    private String countryCode;
 
     public Country(String id,String name, double population, String countryCode) {
         this.id = id;
@@ -46,5 +47,5 @@ public class Country {
         this.countryCode = countryCode;
     }
 
-    private String countryCode;
+
 }
