@@ -1,5 +1,7 @@
 package UI;
 
+import Exceptions.FormatIncorrect;
+import Exceptions.NotFoundCountryID;
 import Model.Controller;
 import Model.Country;
 
@@ -12,9 +14,12 @@ public class Main {
 
     public static Controller controller;
     public static Scanner reader;
+    public static int countCountry;
+
 
     public static void main(String[] args) {
         menu();
+        int exit = 0;
 
         while (exit == 0) {
             System.out.println("1. Insert Comand\n2. Import data from file .SQL\n3. Exit");
