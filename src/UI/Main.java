@@ -7,6 +7,7 @@ import Model.Country;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class Main {
     public static int countCountry;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         menu();
         int exit = 0;
@@ -60,7 +61,8 @@ public class Main {
                                     }
                                     break;
                                 case 2:
-                                    if (controller.loadCountries().size() == 0) {
+
+                                    if (controller.countriesSize() == 0) {
                                         System.out.println("There are no countries added yet!");
                                     } else {
 
@@ -111,7 +113,7 @@ public class Main {
 
 
 
-    public static void menu() {
+    public static void menu() throws IOException {
         String menu = ("                / |  / | -------------------------------\n" +
                 "                | |__| |                               |\n" +
                 "               /   O O\\__  Welcome to the geographic   |\n" +
@@ -134,5 +136,11 @@ public class Main {
         System.out.println(menu);
         reader = new Scanner(System.in);
         controller = new Controller();
+        try {
+            controller.loadCountries2();
+            controller.loadCities2();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
