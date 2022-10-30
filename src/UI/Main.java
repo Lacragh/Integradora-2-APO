@@ -1,6 +1,7 @@
 package UI;
 
 import Exceptions.FormatIncorrect;
+import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
 import Model.Controller;
 import Model.Country;
@@ -30,72 +31,7 @@ public class Main {
             switch (menu) {
 
                 case 1:
-                    System.out.println("What do you want to do?");
-                    System.out.println("1. Add country/city");
-                    System.out.println("2. Search country/city");
-                    System.out.println("3. Filter country/city");
-                    System.out.println("4. Delete country/city");
-                    int choice = reader.nextInt();
 
-                    switch (choice) {
-
-                        case 1:
-
-                            System.out.println("What do you want to add?");
-                            System.out.println("1. Country");
-                            System.out.println("2. City");
-                            int choice2 = reader.nextInt();
-
-                            switch (choice2) {
-
-                                case 1:
-                                    System.out.println("Please add the data of the country with the following " +
-                                            "format\n-> INSERT INTO countries(id, name, population, countryCode) VALUES ('6ec3e8ec-3dd0-11ed-b878-0242ac120002', 'Colombia', 50.2, '+57')");
-                                    String addCountry = reader.nextLine();
-                                    addCountry = reader.nextLine();
-
-                                    try {
-                                        controller.addCountry(addCountry);
-                                    } catch (FormatIncorrect e) {
-                                        e.printStackTrace();
-                                    }
-                                    break;
-                                case 2:
-
-                                    if (controller.countriesSize() == 0) {
-                                        System.out.println("There are no countries added yet!");
-                                    } else {
-
-                                        System.out.println("Please add the data of the city with the following" +
-                                                " format\n-> INSERT INTO cities(id, name, countryID, population) VALUES ('e4aa04f6-3dd0-11ed-b878-0242ac120002', 'Cali', '6ec3e8ec-3dd0-11ed-b878-0242ac120002', 2.2)");
-                                        String addCity = reader.nextLine();
-                                        addCity = reader.nextLine();
-
-                                        try {
-                                            controller.addCities(addCity);
-                                        } catch (NotFoundCountryID | FormatIncorrect e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    break;
-
-                            }
-                            break;
-                        case 2:
-
-                            break;
-                        case 3:
-
-                            break;
-                        case 4:
-
-                            break;
-                        case 5:
-
-                            break;
-
-                    }
                     break;
                 case 2:
 
@@ -110,7 +46,6 @@ public class Main {
         }
 
     }
-
 
 
     public static void menu() throws IOException {
@@ -137,10 +72,48 @@ public class Main {
         reader = new Scanner(System.in);
         controller = new Controller();
         try {
-            controller.loadCountries2();
-            controller.loadCities2();
+            controller.loadCountries();
+            controller.loadCities();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void insertCommand() {
+
+        System.out.println("Please insert the command\n");
+        String command = reader.nextLine();
+
+        if (command.startsWith("INSERT INTO countries(id, name, population, countryCode) VALUES")) {
+            try {
+                controller.addCountry(command);
+                System.out.println(controller.showCountries());
+            } catch (FormatIncorrect | IDused e) {
+                e.printStackTrace();
+            }
+        } else if (command.startsWith("INSERT INTO cities(id, name, countryID, population) VALUES")) {
+            try {
+                controller.addCities(command);
+            } catch (NotFoundCountryID | FormatIncorrect e) {
+                throw new RuntimeException(e);
+            }
+        } else if (command.startsWith("SELECT * FROM countries")) {
+
+            try {
+                controller.select(command);
+            } catch (FormatIncorrect e) {
+                throw new RuntimeException(e);
+            }
+
+        } else if (command.startsWith("SELECT * FROM cities")) {
+
+            try {
+                controller.select(command);
+            } catch (FormatIncorrect e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
 }
