@@ -6,7 +6,6 @@ import Exceptions.NotFoundCountryID;
 import Model.Controller;
 import Model.Country;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -83,7 +82,7 @@ public class Main {
 
         System.out.println("Please insert the command\n");
         String command = reader.nextLine();
-
+        command = reader.nextLine();
         if (command.startsWith("INSERT INTO countries(id, name, population, countryCode) VALUES")) {
             try {
                 controller.addCountry(command);
@@ -116,6 +115,8 @@ public class Main {
             } catch (FormatIncorrect e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            System.out.println("The command that you inserted doesn't exist!");
         }
 
     }

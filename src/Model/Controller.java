@@ -1,4 +1,5 @@
 package Model;
+
 import Exceptions.FormatIncorrect;
 import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
@@ -16,29 +17,26 @@ public class Controller {
     private static ArrayList<Country> countries;
     private static ArrayList<City> cities;
 
-    public Controller(){
+    public Controller() {
         countries = new ArrayList<>();
         cities = new ArrayList<>();
     }
 
+    public boolean addCountry(String command) throws FormatIncorrect, IDused {
 
-    public boolean addCountry(String command) throws FormatIncorrect, IDused{
-
-        if(command.startsWith(comandInsert+" countries(id, name, population, countryCode) VALUES")){
-           String[] array = command.split("VALUES");
-           String[] arrayValues = array[1].replaceAll("\\(","").replaceAll("\\)","").split(",");
+        if (command.startsWith(comandInsert + " countries(id, name, population, countryCode) VALUES")) {
+            String[] array = command.split("VALUES");
+            String[] arrayValues = array[1].replaceAll("\\(", "").replaceAll("\\)", "").split(",");
 
             if (arrayValues[0].startsWith(" '") && arrayValues[0].endsWith("'") &&
                     arrayValues[1].startsWith(" '") && arrayValues[1].endsWith("'") &&
-                    arrayValues[3].startsWith(" '") && arrayValues[3].endsWith("'")){
+                    arrayValues[3].startsWith(" '") && arrayValues[3].endsWith("'")) {
 
                 try {
                     int count = 0;
                     for (int i = 0; i < countriesSize(); i++) {
-                        if (arrayValues[0].equals(countries.get(i).getId())){
+                        if (arrayValues[0].equals(countries.get(i).getId())) {
                             count += 1;
-                        }else {
-                            continue;
                         }
                     }
 
@@ -52,38 +50,36 @@ public class Controller {
                         String json = gson.toJson(countries);
                         fos.write(json.getBytes(StandardCharsets.UTF_8));
                         fos.close();
-                    }else {
+                    } else {
                         throw new IDused();
                     }
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            }else{
-                throw new FormatIncorrect();
+            } else {
+                throw new  FormatIncorrect();
             }
-        }else{
+        } else {
             throw new FormatIncorrect();
         }
         return true;
     }
 
 
-    public boolean addCities(String command) throws NotFoundCountryID, FormatIncorrect{
+    public boolean addCities(String command) throws NotFoundCountryID, FormatIncorrect {
 
-        if (command.startsWith(comandInsert+ " cities(id, name, countryID, population) VALUES")){
+        if (command.startsWith(comandInsert + " cities(id, name, countryID, population) VALUES")) {
             String[] array = command.split("VALUES");
-            String[] arrayValues = array[1].replaceAll("\\(","").replaceAll("\\)","").split(",");
+            String[] arrayValues = array[1].replaceAll("\\(", "").replaceAll("\\)", "").split(",");
 
-            if(arrayValues[0].startsWith(" '") && arrayValues[0].endsWith("'") &&
-            arrayValues[1].startsWith(" '") && arrayValues[1].endsWith("'") &&
-            arrayValues[2].startsWith(" '") && arrayValues[2].endsWith("'")
-            ){
+            if (arrayValues[0].startsWith(" '") && arrayValues[0].endsWith("'") &&
+                    arrayValues[1].startsWith(" '") && arrayValues[1].endsWith("'") &&
+                    arrayValues[2].startsWith(" '") && arrayValues[2].endsWith("'")
+            ) {
 
                 if (search(arrayValues[2], null) != null) {
                     try {
-                        cities.add(new City(arrayValues[0],arrayValues[1],arrayValues[2],Double.parseDouble(arrayValues[3])));
+                        cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));
                         FileOutputStream fos = new FileOutputStream("Cities.SQL");
                         Gson gson = new Gson();
                         String json = gson.toJson(cities);
@@ -92,17 +88,17 @@ public class Controller {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }else {
+                } else {
                     throw new NotFoundCountryID();
                 }
 
 
-            }else{
+            } else {
                 throw new FormatIncorrect();
             }
 
 
-        }else{
+        } else {
             throw new FormatIncorrect();
         }
 
@@ -130,7 +126,7 @@ public class Controller {
         return null;
     }
 
-    public void loadCities() throws IOException{
+    public void loadCities() throws IOException {
         FileInputStream fis = new FileInputStream("Cities.SQL");
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(fis)
@@ -138,7 +134,7 @@ public class Controller {
 
         String json = "";
         String line = "";
-        while ((line = reader.readLine()) != null){
+        while ((line = reader.readLine()) != null) {
             json += line;
         }
 
@@ -151,7 +147,7 @@ public class Controller {
         }
     }
 
-    public void loadCountries() throws IOException{
+    public void loadCountries()  throws IOException{
         FileInputStream fis = new FileInputStream("Countries.SQL");
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(fis)
@@ -159,47 +155,47 @@ public class Controller {
 
         String json = "";
         String line = "";
-        while ((line = reader.readLine()) != null){
+        while ((line = reader.readLine()) != null) {
             json += line;
         }
 
         Gson gson = new Gson();
         Country[] data = gson.fromJson(json, Country[].class);
-        if (data != null){
-            for (int i=0 ; i<data.length ; i++){
+        if (data != null) {
+            for (int i = 0; i < data.length; i++) {
                 countries.add(data[i]);
             }
         }
     }
 
-    public int countriesSize(){
+    public int countriesSize() {
         return countries.size();
     }
 
-    public String showCountries(){
-        String info = "";
-        for (int i = 0; i < countries.size(); i++) {
-            info += countries.get(i).toString();
+    public String showCountries() {
+        StringBuilder info = new StringBuilder();
+        for (Country country : countries) {
+            info.append(country.toString());
         }
 
-        return info;
+        return info.toString();
     }
 
-    public String showCities(){
-        String info = "";
-        for (int i = 0; i < cities.size(); i++) {
-            info += cities.get(i).toString();
+    public String showCities() {
+        StringBuilder info = new StringBuilder();
+        for (City city : cities) {
+            info.append(city.toString());
         }
 
-        return info;
+        return info.toString();
     }
 
-    public String select(String command) throws FormatIncorrect{
+    public String select(String command) throws FormatIncorrect {
 
         //
-        if (command.equals(comandSelect + " countries")){
+        if (command.equals(comandSelect + " countries")) {
             return showCountries();
-        }else if(command.equals(comandSelect + " cities")) {
+        } else if (command.equals(comandSelect + " cities")) {
             return showCities();
         }
         //
@@ -224,7 +220,6 @@ public class Controller {
             }else {
                 throw new FormatIncorrect();
             }
-
         }
 
         if (command.startsWith(comandSelect + " countries WHERE name =")) {
@@ -300,8 +295,6 @@ public class Controller {
 
         return info;
     }
-
-
 
 
 }
