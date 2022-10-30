@@ -76,6 +76,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void insertCommand() {
@@ -111,7 +112,12 @@ public class Main {
         } else if (command.startsWith("SELECT * FROM cities")) {
 
             try {
-                controller.select(command);
+                if(controller.select(command) != ""){
+                    System.out.println(controller.select(command));
+                }else{
+                    System.out.println("There are no cities with those specifications");
+                }
+
             } catch (FormatIncorrect e) {
                 throw new RuntimeException(e);
             }
