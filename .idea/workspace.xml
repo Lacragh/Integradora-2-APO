@@ -2,17 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="Se realiza el main ajustes">
-      <change afterPath="$PROJECT_DIR$/Cities.SQL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Countries.SQL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/NotFoundCountryID.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/gson-2.9.1.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <list id="3d985007-44c4-45bb-af24-14c8aebcfb40" name="Changes by Luispi" comment="Changes by Luispi">
+      <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
-    <list id="edea331c-941b-4c02-83f6-204ce04b3704" name="Changes by USER" comment="Cambios">
+    <list id="3d985007-44c4-45bb-af24-14c8aebcfb40" name="Changes by Luispi" comment="Changes by Luispi">
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/FormatIncorrect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/FormatIncorrect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/NotFoundCountryID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/NotFoundCountryID.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
+    </list>
+    <list id="edea331c-941b-4c02-83f6-204ce04b3704" name="Changes by USER" comment="Cambios by sanjo">
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/IDused.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/IDused.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,10 +34,60 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/src/UI/Main.java">
       <ranges>
-        <range start1="2" end1="2" start2="2" end2="4" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
-        <range start1="14" end1="14" start2="16" end2="18" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
-        <range start1="16" end1="16" start2="20" end2="21" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
-        <range start1="17" end1="17" start2="22" end2="23" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="8" end1="9" start2="8" end2="8" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="33" end1="34" start2="32" end2="33" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="79" end1="79" start2="78" end2="79" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
+        <range start1="85" end1="86" start2="85" end2="86" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="102" end1="103" start2="102" end2="107" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="110" end1="111" start2="114" end2="120" changelist="edea331c-941b-4c02-83f6-204ce04b3704" />
+        <range start1="114" end1="114" start2="123" end2="125" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/Model/Controller.java">
+      <ranges>
+        <range start1="1" end1="1" start2="1" end2="2" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="18" end1="19" start2="19" end2="20" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="23" end1="25" start2="24" end2="25" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="26" end1="29" start2="26" end2="29" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="32" end1="33" start2="32" end2="33" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="37" end1="38" start2="37" end2="38" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="39" end1="41" start2="39" end2="39" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="54" end1="55" start2="52" end2="53" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="57" end1="59" start2="55" end2="55" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="62" end1="64" start2="58" end2="60" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="65" end1="66" start2="61" end2="62" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="72" end1="73" start2="68" end2="69" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="74" end1="75" start2="70" end2="71" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="76" end1="77" start2="72" end2="73" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="78" end1="82" start2="74" end2="78" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="83" end1="84" start2="79" end2="80" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="85" end1="86" start2="81" end2="82" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="94" end1="95" start2="90" end2="91" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="99" end1="100" start2="95" end2="96" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="104" end1="105" start2="100" end2="101" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="111" end1="112" start2="107" end2="108" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="113" end1="113" start2="109" end2="115" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="114" end1="117" start2="116" end2="122" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="119" end1="119" start2="124" end2="125" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="122" end1="123" start2="128" end2="129" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="130" end1="131" start2="136" end2="137" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="143" end1="144" start2="149" end2="150" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="151" end1="152" start2="157" end2="158" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="157" end1="159" start2="163" end2="165" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="164" end1="165" start2="170" end2="171" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="168" end1="172" start2="174" end2="178" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="174" end1="175" start2="180" end2="181" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="177" end1="181" start2="183" end2="187" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="183" end1="184" start2="189" end2="190" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="186" end1="187" start2="192" end2="193" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="189" end1="190" start2="195" end2="196" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="191" end1="192" start2="197" end2="198" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="196" end1="197" start2="202" end2="212" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="198" end1="202" start2="213" end2="218" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="206" end1="207" start2="222" end2="222" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
+        <range start1="208" end1="208" start2="223" end2="251" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="212" end1="212" start2="255" end2="297" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="214" end1="216" start2="299" end2="299" changelist="3d985007-44c4-45bb-af24-14c8aebcfb40" />
       </ranges>
     </file>
   </component>
@@ -49,21 +100,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/pante/OneDrive/Escritorio/gson-2.9.1.jar",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pante/OneDrive/Escritorio/gson-2.9.1.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="Integradora 2 APO" />
@@ -77,9 +128,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="gson-2.9.1.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/src/lib/gson-2.9.1.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JAR Application.gson-2.9.1.jar" />
       </list>
     </recent_temporary>
   </component>
@@ -93,7 +149,8 @@
       <updated>1666643697119</updated>
       <workItem from="1666643698603" duration="12019000" />
       <workItem from="1666732043961" duration="3406000" />
-      <workItem from="1666997701179" duration="8576000" />
+      <workItem from="1666997701179" duration="8899000" />
+      <workItem from="1667104704648" duration="6313000" />
     </task>
     <task id="LOCAL-00001" summary="Clases principales creadas y atributos">
       <created>1666646216680</created>
@@ -116,7 +173,28 @@
       <option name="project" value="LOCAL" />
       <updated>1667005973558</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Se realiza el main ajustes">
+      <created>1667006325172</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667006325172</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changes by Luispi">
+      <created>1667006349765</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1667006349765</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Cambios by sanjo">
+      <created>1667006366764</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1667006366764</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,11 +214,13 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Clases principales creadas y atributos" />
     <MESSAGE value="Se guardan los datos en formato Gson tambien se leen" />
-    <MESSAGE value="Se realiza el main ajustes" />
     <MESSAGE value="Changes by USER" />
     <MESSAGE value="Si" />
     <MESSAGE value="Cambios" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios" />
+    <MESSAGE value="Se realiza el main ajustes" />
+    <MESSAGE value="Changes by Luispi" />
+    <MESSAGE value="Cambios by sanjo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios by sanjo" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

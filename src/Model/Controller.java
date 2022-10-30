@@ -81,7 +81,7 @@ public class Controller {
             arrayValues[2].startsWith(" '") && arrayValues[2].endsWith("'")
             ){
 
-                if(search(arrayValues[2]) != null){
+                if (search(arrayValues[2], null) != null) {
                     try {
                         cities.add(new City(arrayValues[0],arrayValues[1],arrayValues[2],Double.parseDouble(arrayValues[3])));
                         FileOutputStream fos = new FileOutputStream("Cities.SQL");
@@ -109,14 +109,24 @@ public class Controller {
         return false;
     }
 
-    public Country search(String id){
+    public Country search(String id, String name) {
 
+        if (name != null) {
+            for (Country country : countries) {
+                if (country.getName().equals(name)) {
+                    return country;
+                }
+            }
 
-        for (int i = 0; i < countries.size(); i++) {
-            if(countries.get(i).getId().equals(id)){
-                return countries.get(i);
+        }
+        if (id != null) {
+            for (Country country : countries) {
+                if (country.getId().equals(id)) {
+                    return country;
+                }
             }
         }
+
         return null;
     }
 
@@ -194,12 +204,22 @@ public class Controller {
         }
         //
 
-        if(command.equals(comandSelect+" countries WHERE population")){
+        if (command.startsWith(comandSelect + " countries WHERE population")) {
+            if (command.startsWith(comandSelect + " countries WHERE population < ")) {
+                String[] countries1 = command.split("<");
+                double pop = Double.parseDouble(countries1[1]);
+                return filter(pop, "2");
 
-            if(command.contains("<")){
-                String[] countries = command.split("<");
-            }else if(command.contains(">")){
-                String[] countries = command.split(">");
+            } else if (command.startsWith(comandSelect + " countries WHERE population > ")) {
+                String[] countries1 = command.split(">");
+                    double pop = Double.parseDouble(countries1[1]);
+                    return filter(pop,"1");
+
+            }else if(command.startsWith(comandSelect + " countries WHERE population = ")){
+                String[] countries1 = command.split("=");
+
+                double pop = Double.parseDouble(countries1[1]);
+                return filter(pop, "=");
 
             }else {
                 throw new FormatIncorrect();
@@ -207,8 +227,78 @@ public class Controller {
 
         }
 
+        if (command.startsWith(comandSelect + " countries WHERE name =")) {
+            String[] countries1 = command.split("=");
+
+            if ((search(null, countries1[1])) != null) {
+                String info = "";
+
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries1[1].equals(countries.get(i).getName())){
+                        info += countries.get(i).toString();
+                    }
+                }
+                return "The country exists\n" + info;
+            }
+        }else if(command.startsWith(comandSelect + " cities WHERE name =")){
+            String[] cities1 = command.split("=");
+
+            if ((search(null, cities1[1])) != null) {
+                String info = "";
+
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities1[1].equals(cities.get(i).getName())){
+                        info += cities.get(i).toString();
+                    }
+                }
+                return "The city exists\n" + info;
+            }
+        }
+
 
         return "";
+    }
+    /*
+    private  boolean isNumeric(String cadena){
+        try {
+            cadena.trim();
+            System.out.println(cadena);
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
+    }
+
+     */
+
+    public String filter(double population,String minMax){
+
+        String info = "";
+        if (minMax.equals("1")){
+            //Mayor
+            for (int i = 0; i < countries.size(); i++) {
+                if(countries.get(i).getPopulation() > population){
+                    info += countries.get(i).toString();
+                }
+            }
+        }else if (minMax.equals("2")){
+            //Menor
+            for (int i = 0; i < countries.size(); i++) {
+                if(countries.get(i).getPopulation() < population){
+                    info += countries.get(i).toString();
+                }
+            }
+        }else if (minMax.equals("=")) {
+            //Igual
+            for (int i = 0; i < countries.size(); i++) {
+                if(countries.get(i).getPopulation() == population){
+                    info += countries.get(i).toString();
+                }
+            }
+        }
+
+        return info;
     }
 
 

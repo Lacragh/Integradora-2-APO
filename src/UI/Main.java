@@ -31,7 +31,7 @@ public class Main {
             switch (menu) {
 
                 case 1:
-
+                    insertCommand();
                     break;
                 case 2:
 
@@ -100,7 +100,11 @@ public class Main {
         } else if (command.startsWith("SELECT * FROM countries")) {
 
             try {
-                controller.select(command);
+                if(controller.select(command) != ""){
+                    System.out.println(controller.select(command));
+                }else{
+                    System.out.println("There are no countries with those specifications");
+                }
             } catch (FormatIncorrect e) {
                 throw new RuntimeException(e);
             }
