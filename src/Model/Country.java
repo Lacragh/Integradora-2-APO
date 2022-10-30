@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Country {
@@ -8,7 +9,7 @@ public class Country {
     private double population;
     private String countryCode;
 
-    public Country(String id,String name, double population, String countryCode) {
+    public Country(String id, String name, double population, String countryCode) {
         this.id = id;
         this.name = name;
         this.population = population;
@@ -47,5 +48,7 @@ public class Country {
         this.countryCode = countryCode;
     }
 
-
+    public String toString(){
+        return "----------------\nName: "+this.name+"\nPopulation: "+this.population+"\nCountry Code: "+this.countryCode+"\n----------------";
+    }
 }

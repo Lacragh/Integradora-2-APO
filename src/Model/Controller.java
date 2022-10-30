@@ -1,5 +1,6 @@
 package Model;
 import Exceptions.FormatIncorrect;
+import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
 import com.google.gson.Gson;
 
@@ -21,7 +22,7 @@ public class Controller {
     }
 
 
-    public boolean addCountry(String command) throws FormatIncorrect{
+    public boolean addCountry(String command) throws FormatIncorrect, IDused{
 
         if(command.startsWith(comandInsert+" countries(id, name, population, countryCode) VALUES")){
            String[] array = command.split("VALUES");
@@ -29,21 +30,31 @@ public class Controller {
 
             if (arrayValues[0].startsWith(" '") && arrayValues[0].endsWith("'") &&
                     arrayValues[1].startsWith(" '") && arrayValues[1].endsWith("'") &&
-                    arrayValues[3].startsWith(" '") && arrayValues[3].endsWith("'")
-            ){
+                    arrayValues[3].startsWith(" '") && arrayValues[3].endsWith("'")){
+
                 try {
-                    //loadCountries2();
+                    int count = 0;
+                    for (int i = 0; i < countriesSize(); i++) {
+                        if (arrayValues[0].equals(countries.get(i).getId())){
+                            count += 1;
+                        }else {
+                            continue;
+                        }
+                    }
 
-                    countries.add(new Country(
-                            arrayValues[0],arrayValues[1],Double.parseDouble(arrayValues[2]) ,arrayValues[3]
-                            ));
+                    if (count == 0) {
+                        countries.add(new Country(
+                                arrayValues[0], arrayValues[1], Double.parseDouble(arrayValues[2]), arrayValues[3]
+                        ));
 
-                    FileOutputStream fos = new FileOutputStream("Countries.SQL");
-                    Gson gson = new Gson();
-                    String json = gson.toJson(countries);
-                    fos.write(json.getBytes(StandardCharsets.UTF_8));
-                    fos.close();
-
+                        FileOutputStream fos = new FileOutputStream("Countries.SQL");
+                        Gson gson = new Gson();
+                        String json = gson.toJson(countries);
+                        fos.write(json.getBytes(StandardCharsets.UTF_8));
+                        fos.close();
+                    }else {
+                        throw new IDused();
+                    }
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 } catch (IOException e) {
@@ -52,9 +63,6 @@ public class Controller {
             }else{
                 throw new FormatIncorrect();
             }
-
-
-
         }else{
             throw new FormatIncorrect();
         }
@@ -75,7 +83,6 @@ public class Controller {
 
                 if(search(arrayValues[2]) != null){
                     try {
-                        //loadCities2();
                         cities.add(new City(arrayValues[0],arrayValues[1],arrayValues[2],Double.parseDouble(arrayValues[3])));
                         FileOutputStream fos = new FileOutputStream("Cities.SQL");
                         Gson gson = new Gson();
@@ -113,7 +120,7 @@ public class Controller {
         return null;
     }
 
-    public static void loadCities2() throws IOException{
+    public void loadCities() throws IOException{
         FileInputStream fis = new FileInputStream("Cities.SQL");
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(fis)
@@ -134,7 +141,7 @@ public class Controller {
         }
     }
 
-    public static void loadCountries2() throws IOException{
+    public void loadCountries() throws IOException{
         FileInputStream fis = new FileInputStream("Countries.SQL");
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(fis)
@@ -155,9 +162,55 @@ public class Controller {
         }
     }
 
-    public int countriesSize() throws IOException {
+    public int countriesSize(){
         return countries.size();
     }
+
+    public String showCountries(){
+        String info = "";
+        for (int i = 0; i < countries.size(); i++) {
+            info += countries.get(i).toString();
+        }
+
+        return info;
+    }
+
+    public String showCities(){
+        String info = "";
+        for (int i = 0; i < cities.size(); i++) {
+            info += cities.get(i).toString();
+        }
+
+        return info;
+    }
+
+    public String select(String command) throws FormatIncorrect{
+
+        //
+        if (command.equals(comandSelect + " countries")){
+            return showCountries();
+        }else if(command.equals(comandSelect + " cities")) {
+            return showCities();
+        }
+        //
+
+        if(command.equals(comandSelect+" countries WHERE population")){
+
+            if(command.contains("<")){
+                String[] countries = command.split("<");
+            }else if(command.contains(">")){
+                String[] countries = command.split(">");
+
+            }else {
+                throw new FormatIncorrect();
+            }
+
+        }
+
+
+        return "";
+    }
+
 
 
 
