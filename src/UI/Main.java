@@ -121,8 +121,37 @@ public class Main {
             } catch (FormatIncorrect e) {
                 throw new RuntimeException(e);
             }
-        } else {
+
+        } else if (command.startsWith("DELETE FROM countries")) {
+
+            try {
+                String info = controller.delete(command);
+                if(!info.equals("")){
+                    System.out.println(info);
+                }else{
+                    System.out.println("There are no countries with those specifications");
+                }
+
+            } catch (FormatIncorrect | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else if (command.startsWith("DELETE FROM cities")) {
+
+            try {
+                String info = controller.delete(command);
+                if(!info.equals("")){
+                    System.out.println(info);
+                }else{
+                    System.out.println("There are no cities with those specifications");
+                }
+
+            } catch (FormatIncorrect | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+
             System.out.println("The command that you inserted doesn't exist!");
+
         }
 
     }

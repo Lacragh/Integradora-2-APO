@@ -190,69 +190,7 @@ public class Controller {
         return info.toString();
     }
 
-    public String select(String command) throws FormatIncorrect {
 
-        //
-        if (command.equals(comandSelect + " countries")) {
-            return showCountries();
-        } else if (command.equals(comandSelect + " cities")) {
-            return showCities();
-        }
-        //
-
-        if (command.startsWith(comandSelect + " countries WHERE population")) {
-            if (command.startsWith(comandSelect + " countries WHERE population < ")) {
-                String[] countries1 = command.split("<");
-                double pop = Double.parseDouble(countries1[1]);
-                return filter(pop, "2");
-
-            } else if (command.startsWith(comandSelect + " countries WHERE population > ")) {
-                String[] countries1 = command.split(">");
-                    double pop = Double.parseDouble(countries1[1]);
-                    return filter(pop,"1");
-
-            }else if(command.startsWith(comandSelect + " countries WHERE population = ")){
-                String[] countries1 = command.split("=");
-
-                double pop = Double.parseDouble(countries1[1]);
-                return filter(pop, "=");
-
-            }else {
-                throw new FormatIncorrect();
-            }
-        }
-
-        if (command.startsWith(comandSelect + " countries WHERE name =")) {
-            String[] countries1 = command.split("=");
-
-            if ((search(null, countries1[1])) != null) {
-                String info = "";
-
-                for (int i = 0; i < countries.size(); i++) {
-                    if (countries1[1].equals(countries.get(i).getName())){
-                        info += countries.get(i).toString();
-                    }
-                }
-                return "The country exists\n" + info;
-            }
-        }else if(command.startsWith(comandSelect + " cities WHERE name =")){
-            String[] cities1 = command.split("=");
-
-            if ((search(null, cities1[1])) != null) {
-                String info = "";
-
-                for (int i = 0; i < cities.size(); i++) {
-                    if (cities1[1].equals(cities.get(i).getName())){
-                        info += cities.get(i).toString();
-                    }
-                }
-                return "The city exists\n" + info;
-            }
-        }
-
-
-        return "";
-    }
     /*
     private  boolean isNumeric(String cadena){
         try {
@@ -295,6 +233,5 @@ public class Controller {
 
         return info;
     }
-
 
 }
