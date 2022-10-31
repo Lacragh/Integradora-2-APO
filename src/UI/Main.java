@@ -4,18 +4,12 @@ import Exceptions.FormatIncorrect;
 import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
 import Model.Controller;
-import Model.Country;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.UUID;
-
 public class Main {
 
     public static Controller controller;
     public static Scanner reader;
-    public static int countCountry;
 
 
     public static void main(String[] args) {
@@ -48,25 +42,25 @@ public class Main {
 
 
     public static void menu() {
-        String menu = ("                / |  / | -------------------------------\n" +
-                "                | |__| |                               |\n" +
-                "               /   O O\\__  Welcome to the geographic   |\n" +
-                "              /          \\   information system        |\n" +
-                "             /      \\     \\                            |\n" +
-                "            /   _    \\     \\ ---------------------------\n" +
-                "           /    |\\____\\     \\      ||\n" +
-                "          /     | | | |\\____/      ||\n" +
-                "         /       \\| | | |/ |     __||\n" +
-                "        /  /  \\   -------  |_____| ||\n" +
-                "       /   |   |           |       --|\n" +
-                "       |   |   |           |_____  --|\n" +
-                "       |  |_|_|_|          |     \\----\n" +
-                "       /\\                  |\n" +
-                "      / /\\        |        /\n" +
-                "     / /  |       |       |\n" +
-                " ___/ /   |       |       |\n" +
-                "|____/    c_c_c_C/ \\C_c_c_c" +
-                "");
+        String menu = ("""
+                                / |  / | -------------------------------
+                                | |__| |                               |
+                               /   O O\\__  Welcome to the geographic   |
+                              /          \\   information system        |
+                             /      \\     \\                            |
+                            /   _    \\     \\ ---------------------------
+                           /    |\\____\\     \\      ||
+                          /     | | | |\\____/      ||
+                         /       \\| | | |/ |     __||
+                        /  /  \\   -------  |_____| ||
+                       /   |   |           |       --|
+                       |   |   |           |_____  --|
+                       |  |_|_|_|          |     \\----
+                       /\\                  |
+                      / /\\        |        /
+                     / /  |       |       |
+                 ___/ /   |       |       |
+                |____/    c_c_c_C/ \\C_c_c_c""");
         System.out.println(menu);
         reader = new Scanner(System.in);
         controller = new Controller();
