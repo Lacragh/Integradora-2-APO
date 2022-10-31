@@ -16,6 +16,7 @@ public class Controller {
 
     private final String comandInsert = "INSERT INTO";
     private final String comandSelect = "SELECT * FROM";
+    private final String comandDelete = "DELETE FROM";
     private static ArrayList<Country> countries;
     private static ArrayList<City> cities;
 
@@ -79,7 +80,7 @@ public class Controller {
                     arrayValues[2].startsWith(" '") && arrayValues[2].endsWith("'")
             ) {
 
-                if (search(arrayValues[2], null) != null) {
+                if (searchCountries(arrayValues[2], null, null) != null) {
                     try {
                         cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));
                         FileOutputStream fos = new FileOutputStream("Cities.SQL");
@@ -107,7 +108,7 @@ public class Controller {
         return false;
     }
 
-    public Country search(String id, String name) {
+    public Country searchCountries(String id, String name, String countryCode) {
 
         if (name != null) {
             for (Country country : countries) {
@@ -121,6 +122,34 @@ public class Controller {
             for (Country country : countries) {
                 if (country.getId().equals(id)) {
                     return country;
+                }
+            }
+        }
+        if (countryCode != null) {
+            for (Country country : countries) {
+                if (country.getCountryCode().equals(countryCode)) {
+                    return country;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public City searchCities(String id, String name) {
+
+        if (name != null) {
+            for (City city : cities) {
+                if (city.getName().equals(name)) {
+                    return city;
+                }
+            }
+
+        }
+        if (id != null) {
+            for (City city : cities) {
+                if (city.getId().equals(id)) {
+                    return city;
                 }
             }
         }
