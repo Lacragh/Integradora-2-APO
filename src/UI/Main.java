@@ -18,7 +18,7 @@ public class Main {
     public static int countCountry;
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         menu();
         int exit = 0;
@@ -47,7 +47,7 @@ public class Main {
     }
 
 
-    public static void menu() throws IOException {
+    public static void menu() {
         String menu = ("                / |  / | -------------------------------\n" +
                 "                | |__| |                               |\n" +
                 "               /   O O\\__  Welcome to the geographic   |\n" +
@@ -85,24 +85,31 @@ public class Main {
         String command = reader.nextLine();
         command = reader.nextLine();
         if (command.startsWith("INSERT INTO countries(id, name, population, countryCode) VALUES")) {
+
             try {
                 controller.addCountry(command);
                 System.out.println(controller.showCountries());
             } catch (FormatIncorrect | IDused e) {
                 e.printStackTrace();
             }
+
         } else if (command.startsWith("INSERT INTO cities(id, name, countryID, population) VALUES")) {
+
             try {
                 controller.addCities(command);
             } catch (NotFoundCountryID | FormatIncorrect e) {
                 throw new RuntimeException(e);
             }
+
+        } else if (command.contains("ORDER BY")) {
+            System.out.println(controller.orderBy(command));
+
         } else if (command.startsWith("SELECT * FROM countries")) {
 
             try {
-                if(controller.select(command) != ""){
+                if (!controller.select(command).equals("")) {
                     System.out.println(controller.select(command));
-                }else{
+                } else {
                     System.out.println("There are no countries with those specifications");
                 }
             } catch (FormatIncorrect e) {
@@ -112,12 +119,11 @@ public class Main {
         } else if (command.startsWith("SELECT * FROM cities")) {
 
             try {
-                if(controller.select(command) != ""){
+                if (!controller.select(command).equals("")) {
                     System.out.println(controller.select(command));
-                }else{
+                } else {
                     System.out.println("There are no cities with those specifications");
                 }
-
             } catch (FormatIncorrect e) {
                 throw new RuntimeException(e);
             }
