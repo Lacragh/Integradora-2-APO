@@ -345,8 +345,8 @@ public class Controller {
                 Collections.sort(cityOrder, (a, b) -> {
                     return a.getName().compareTo(b.getName());
                 });
-                for (int i = 0; i < cities.size(); i++) {
-                    info += cities.get(i).toString();
+                for (int i = 0; i < cityOrder.size(); i++) {
+                    info += cityOrder.get(i).toString();
                 }
                 return info;
 
@@ -357,7 +357,7 @@ public class Controller {
 
         if (command.contains("<") && command.contains("countries") && command.contains("population")) {
             String[] orderby = command.split("<");
-            if (orderby[1].contains("ORDER BY name")) {
+            if (orderby[1].contains("ORDER BY population")) {
                 String[] orderby2 = orderby[1].split(" ");
                 ArrayList<Country> countryOrder = new ArrayList<>();
                 for (int i = 0; i < countries.size(); i++) {
@@ -384,7 +384,7 @@ public class Controller {
 
         if (command.contains(">") && command.contains("countries")&& command.contains("population")) {
             String[] orderby = command.split(">");
-            if (orderby[1].contains("ORDER BY name")) {
+            if (orderby[1].contains("ORDER BY population")) {
                 String[] orderby2 = orderby[1].split(" ");
                 ArrayList<Country> countryOrder = new ArrayList<>();
                 for (int i = 0; i < countries.size(); i++) {
@@ -409,7 +409,7 @@ public class Controller {
 
         if (command.contains("<") && command.contains("cities")&& command.contains("population")) {
             String[] orderby = command.split("<");
-            if (orderby[1].contains("ORDER BY name")) {
+            if (orderby[1].contains("ORDER BY population")) {
                 String[] orderby2 = orderby[1].split(" ");
                 ArrayList<City> cityOrder = new ArrayList<>();
                 for (int i = 0; i < cities.size(); i++) {
@@ -436,7 +436,7 @@ public class Controller {
 
         if (command.contains(">") && command.contains("cities")&& command.contains("population")) {
             String[] orderby = command.split(">");
-            if (orderby[1].contains("ORDER BY name")) {
+            if (orderby[1].contains("ORDER BY population")) {
                 String[] orderby2 = orderby[1].split(" ");
                 ArrayList<City> cityOrder = new ArrayList<>();
                 for (int i = 0; i < cities.size(); i++) {
