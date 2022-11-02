@@ -101,7 +101,7 @@ public class Main {
                 try {
                     controller.addCities(command);
                 } catch (NotFoundCountryID | FormatIncorrect e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
 
@@ -117,7 +117,7 @@ public class Main {
                     System.out.println("There are no countries with those specifications");
                 }
             } catch (FormatIncorrect e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
 
         } else if (command.startsWith("SELECT * FROM cities")) {
@@ -129,7 +129,7 @@ public class Main {
                     System.out.println("There are no cities with those specifications");
                 }
             } catch (FormatIncorrect e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
 
         } else if (command.startsWith("DELETE FROM countries")) {
@@ -143,7 +143,7 @@ public class Main {
                 }
 
             } catch (FormatIncorrect | IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         } else if (command.startsWith("DELETE FROM cities")) {
 
@@ -156,7 +156,7 @@ public class Main {
                 }
 
             } catch (FormatIncorrect | IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         } else {
 

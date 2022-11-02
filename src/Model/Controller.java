@@ -80,12 +80,26 @@ public class Controller {
 
                 if (searchCountries(arrayValues[2], null, null) != null) {
                     try {
-                        cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));
-                        FileOutputStream fos = new FileOutputStream("Cities.SQL");
-                        Gson gson = new Gson();
-                        String json = gson.toJson(cities);
-                        fos.write(json.getBytes(StandardCharsets.UTF_8));
-                        fos.close();
+
+                        int count = 0;
+                        for (int i = 0; i < cities.size(); i++) {
+                            if (arrayValues[0].equals(cities.get(i).getId())) {
+                                count += 1;
+                            }
+                        }
+
+                        if(count == 0){
+                            cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));
+
+                            FileOutputStream fos = new FileOutputStream("Cities.SQL");
+                            Gson gson = new Gson();
+                            String json = gson.toJson(cities);
+                            fos.write(json.getBytes(StandardCharsets.UTF_8));
+                            fos.close();
+                        }else{
+                            throw new IDused();
+                        }
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -668,16 +682,10 @@ public class Controller {
             }
         } else if (command.startsWith(comandDelete + " cities WHERE country =")) {
             String[] citiesOfCountries = command.split("=");
-            Country a = new Country("123", "Colombia", 1234, "1234");
-            for (int i = countries.size() - 1; i >= 0; i--) {
 
-                if(countries.get(i).getName().equals(citiesOfCountries[1])){
-                    System.out.println("ENTRA");
-                    if(countries.get(i).getId().equals(cities.get(i).getCountryID())){
-                        System.out.println("ENTRA DE NUEVO");
-                        cities.remove(i);
-                    }
-
+            for (int i = cities.size() - 1; i >= 0; i--) {
+                if (searchCountries(null, citiesOfCountries[1], null).getId().equals(cities.get(i).getCountryID())) {
+                    cities.remove(i);
                 }
 
             }
@@ -688,7 +696,7 @@ public class Controller {
             fos.write(json.getBytes(StandardCharsets.UTF_8));
             fos.close();
 
-            return "Cities from " + citiesOfCountries[1].replaceAll(" ","") + " eliminated";
+            return "Cities from " + citiesOfCountries[1].replaceAll(" ", "") + " eliminated";
 
         }
 
