@@ -242,6 +242,14 @@ public class Controller {
         fos.close();
     }
 
+    public void saveCountries() throws IOException {
+        FileOutputStream fos = new FileOutputStream("Countries.SQL");
+        Gson gson = new Gson();
+        String json = gson.toJson(countries);
+        fos.write(json.getBytes(StandardCharsets.UTF_8));
+        fos.close();
+    }
+
     public void loadSQL(String text) throws IOException {
 
         FileInputStream fis = new FileInputStream(text);
@@ -600,6 +608,47 @@ public class Controller {
             }
         }
 
+        if (command.startsWith(comandSelect + " countries WHERE id =")) {
+            String[] countries1 = command.split("=");
+
+            if ((searchCountries(null, null, countries1[1])) != null) {
+                String info = "";
+
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries1[1].equals(countries.get(i).getId())) {
+                        info = countries.get(i).toString();
+                    }
+                }
+                return "The Country exists:\n" + info;
+            }
+        } else if (command.startsWith(comandSelect + " cities WHERE id =")) {
+            String[] cities1 = command.split("=");
+
+            if ((searchCities(cities1[1], null)) != null) {
+                String info = "";
+
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities1[1].equals(cities.get(i).getId())) {
+                        info = cities.get(i).toString();
+                    }
+                }
+                return "The City exists:\n" + info;
+            }
+        }
+
+        if (command.startsWith(comandSelect + " cities WHERE country =")) {
+            String[] citiesOfCountries = command.split("=");
+            String info = "";
+
+            for (int i = cities.size() - 1; i >= 0; i--) {
+                if (searchCountries(null, citiesOfCountries[1], null).getId().equals(cities.get(i).getCountryID())) {
+                    info += cities.get(i).toString();
+                }
+
+            }
+
+            return "The Cities exist:\n" + info;
+        }
 
         return "";
     }
@@ -667,22 +716,16 @@ public class Controller {
         //
         if (command.equals(comandDelete + " countries")) {
             String info = deleteCountries();
+            deleteCities();
 
-            FileOutputStream fos = new FileOutputStream("Countries.SQL");
-            Gson gson = new Gson();
-            String json = gson.toJson(countries);
-            fos.write(json.getBytes(StandardCharsets.UTF_8));
-            fos.close();
+            saveCountries();
+            saveCities();
 
             return info;
         } else if (command.equals(comandDelete + " cities")) {
             String info = deleteCities();
 
-            FileOutputStream fos = new FileOutputStream("Cities.SQL");
-            Gson gson = new Gson();
-            String json = gson.toJson(cities);
-            fos.write(json.getBytes(StandardCharsets.UTF_8));
-            fos.close();
+            saveCities();
 
             return info;
         }
@@ -694,11 +737,8 @@ public class Controller {
                 double pop = Double.parseDouble(countries1[1]);
                 String info = findDelete(pop, "2");
 
-                FileOutputStream fos = new FileOutputStream("Countries.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(countries);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCountries();
+                saveCities();
 
                 return info;
 
@@ -711,11 +751,8 @@ public class Controller {
                     System.out.println(countries.get(i).toString());
                 }
 
-                FileOutputStream fos = new FileOutputStream("Countries.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(countries);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCountries();
+                saveCities();
 
                 return info;
 
@@ -725,11 +762,8 @@ public class Controller {
                 double pop = Double.parseDouble(countries1[1]);
                 String info = findDelete(pop, "=");
 
-                FileOutputStream fos = new FileOutputStream("Countries.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(countries);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCountries();
+                saveCities();
 
                 return info;
 
@@ -742,11 +776,7 @@ public class Controller {
                 double pop = Double.parseDouble(cities1[1]);
                 String info = findDelete2(pop, "2");
 
-                FileOutputStream fos = new FileOutputStream("Cities.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(cities);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCities();
 
                 return info;
 
@@ -755,11 +785,7 @@ public class Controller {
                 double pop = Double.parseDouble(cities1[1]);
                 String info = findDelete2(pop, "1");
 
-                FileOutputStream fos = new FileOutputStream("Cities.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(cities);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCities();
 
                 return info;
 
@@ -769,11 +795,7 @@ public class Controller {
                 double pop = Double.parseDouble(cities1[1]);
                 String info = findDelete2(pop, "=");
 
-                FileOutputStream fos = new FileOutputStream("Cities.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(cities);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCities();
 
                 return info;
 
@@ -785,8 +807,9 @@ public class Controller {
         if (command.startsWith(comandDelete + " countries WHERE name =")) {
             String[] countries1 = command.split("=");
 
-            if ((searchCountries(null, countries1[1], null)) != null) {
-                String info = "";
+            if ((searchCountries(null, countries1[1], null)) != null){
+
+                deleteCitiesNotCountries(searchCountries(null, countries1[1], null));
 
                 for (int i = 0; i < countries.size(); i++) {
                     if (countries1[1].equals(countries.get(i).getName())) {
@@ -794,11 +817,8 @@ public class Controller {
                     }
                 }
 
-                FileOutputStream fos = new FileOutputStream("Countries.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(countries);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCountries();
+                saveCities();
 
                 return "Countries eliminated";
             }
@@ -806,7 +826,6 @@ public class Controller {
             String[] cities1 = command.split("=");
 
             if ((searchCities(null, cities1[1])) != null) {
-                String info = "";
 
                 for (int i = 0; i < cities.size(); i++) {
                     if (cities1[1].equals(cities.get(i).getName())) {
@@ -814,15 +833,49 @@ public class Controller {
                     }
                 }
 
-                FileOutputStream fos = new FileOutputStream("Cities.SQL");
-                Gson gson = new Gson();
-                String json = gson.toJson(cities);
-                fos.write(json.getBytes(StandardCharsets.UTF_8));
-                fos.close();
+                saveCities();
 
                 return "Cities eliminated";
             }
-        } else if (command.startsWith(comandDelete + " cities WHERE country =")) {
+        }
+
+        if (command.startsWith(comandDelete + " countries WHERE id =")) {
+            String[] countries1 = command.split("=");
+
+            if ((searchCountries(null, null, countries1[1])) != null) {
+
+                deleteCitiesNotCountries(searchCountries(null, null, countries1[1]));
+
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries1[1].equals(countries.get(i).getId())) {
+                        countries.remove(i);
+                    }
+                }
+
+                saveCountries();
+                saveCities();
+
+                return "Country eliminated";
+            }
+        } else if (command.startsWith(comandDelete + " cities WHERE id =")) {
+            String[] cities1 = command.split("=");
+
+            if ((searchCities(cities1[1], null)) != null) {
+
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities1[1].equals(cities.get(i).getId())) {
+                        cities.remove(i);
+                    }
+                }
+
+                saveCities();
+
+                return "City eliminated";
+            }
+        }
+
+
+        if (command.startsWith(comandDelete + " cities WHERE country =")) {
             String[] citiesOfCountries = command.split("=");
 
             for (int i = cities.size() - 1; i >= 0; i--) {
@@ -832,11 +885,7 @@ public class Controller {
 
             }
 
-            FileOutputStream fos = new FileOutputStream("Cities.SQL");
-            Gson gson = new Gson();
-            String json = gson.toJson(cities);
-            fos.write(json.getBytes(StandardCharsets.UTF_8));
-            fos.close();
+            saveCities();
 
             return "Cities from " + citiesOfCountries[1].replaceAll(" ", "") + " eliminated";
 
@@ -867,13 +916,14 @@ public class Controller {
         return info;
     }
 
-    public String findDelete(double population, String minMax) {
+    public String findDelete(double population, String minMax){
 
         String info = "";
         if (minMax.equals("1")) {
             //Mayor
-            for (int i = countries.size() - 1; i >= 0; i--) {
-                if (countries.get(i).getPopulation() > population) {
+            for (int i = countries.size() - 1; i >= 0; i--){
+                if (countries.get(i).getPopulation() > population){
+                    deleteCitiesNotCountries(countries.get(i));
                     countries.remove(i);
                     info = "Countries eliminated";
                 }
@@ -881,7 +931,8 @@ public class Controller {
         } else if (minMax.equals("2")) {
             //Menor
             for (int i = countries.size() - 1; i >= 0; i--) {
-                if (countries.get(i).getPopulation() < population) {
+                if (countries.get(i).getPopulation() < population){
+                    deleteCitiesNotCountries(countries.get(i));
                     countries.remove(i);
                     info = "Countries eliminated";
                 }
@@ -889,7 +940,8 @@ public class Controller {
         } else if (minMax.equals("=")) {
             //Igual
             for (int i = countries.size() - 1; i >= 0; i--) {
-                if (countries.get(i).getPopulation() == population) {
+                if (countries.get(i).getPopulation() == population){
+                    deleteCitiesNotCountries(countries.get(i));
                     countries.remove(i);
                     info = "Countries eliminated";
                 }
@@ -899,29 +951,29 @@ public class Controller {
         return info;
     }
 
-    public String findDelete2(double population, String minMax) {
+    public String findDelete2(double population, String minMax){
 
         String info = "";
         if (minMax.equals("1")) {
             //Mayor
             for (int i = cities.size() - 1; i >= 0; i--) {
-                if (cities.get(i).getPopulation() > population) {
+                if (cities.get(i).getPopulation() > population){
                     cities.remove(i);
                     info = "Cities eliminated";
                 }
             }
         } else if (minMax.equals("2")) {
             //Menor
-            for (int i = cities.size() - 1; i >= 0; i--) {
-                if (cities.get(i).getPopulation() < population) {
+            for (int i = cities.size() - 1; i >= 0; i--){
+                if (cities.get(i).getPopulation() < population){
                     cities.remove(i);
                     info = "Cities eliminated";
                 }
             }
-        } else if (minMax.equals("=")) {
+        } else if (minMax.equals("=")){
             //Igual
-            for (int i = cities.size() - 1; i >= 0; i--) {
-                if (cities.get(i).getPopulation() == population) {
+            for (int i = cities.size() - 1; i >= 0; i--){
+                if (cities.get(i).getPopulation() == population){
                     cities.remove(i);
                     info = "Cities eliminated";
                 }

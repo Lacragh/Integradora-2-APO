@@ -92,7 +92,6 @@ public class Main {
             } else {
                 try {
                     controller.addCountry(command);
-                    System.out.println(controller.showCountries());
                 } catch (FormatIncorrect | IDused e) {
                     e.printStackTrace();
                 }
