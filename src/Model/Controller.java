@@ -4,12 +4,10 @@ import Exceptions.FormatIncorrect;
 import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
 import com.google.gson.Gson;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Controller {
@@ -89,7 +87,7 @@ public class Controller {
                         fos.write(json.getBytes(StandardCharsets.UTF_8));
                         fos.close();
                     } catch (IOException e) {
-                        System.out.println("1rata");
+                        throw new RuntimeException(e);
                     }
                 } else {
                     throw new NotFoundCountryID();
@@ -222,7 +220,8 @@ public class Controller {
     }
 
 
-    private boolean isNumeric(String cadena) {
+    /*
+    private  boolean isNumeric(String cadena){
         try {
             cadena.trim();
             System.out.println(cadena);
@@ -233,10 +232,11 @@ public class Controller {
         }
     }
 
+     */
 
     public String orderBy(String command) {
         String info = "";
-        if (command.contains("<") && command.contains("countries")) {
+        if (command.contains("<")) {
             String[] orderby = command.split("<");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -259,7 +259,7 @@ public class Controller {
 
         }
 
-        if (command.contains(">") && command.contains("countries")) {
+        if (command.contains(">")) {
             String[] orderby = command.split(">");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -280,72 +280,11 @@ public class Controller {
             }
         }
 
-        if (command.contains(">") && command.contains("cities")) {
-            String[] orderby = command.split(">");
-            if (orderby[1].contains("ORDER BY name")) {
-                String[] orderby2 = orderby[1].split(" ");
-                ArrayList<City> cityOrder = new ArrayList<>();
-                for (int i = 0; i < cities.size(); i++) {
-                    if (cities.get(i).getPopulation() > Integer.parseInt(orderby2[1])) {
-                        cityOrder.add(cities.get(i));
-                    }
-                }
-                Collections.sort(cityOrder, (a, b) -> {
-                    return a.getName().compareTo(b.getName());
-                });
-                for (int i = 0; i < cityOrder.size(); i++) {
-                    info += cityOrder.get(i).toString();
-                }
-                return info;
-
-            }
-        }
-
-        if (command.contains("<") && command.contains("cities")) {
-            String[] orderby = command.split("<");
-            if (orderby[1].contains("ORDER BY name")) {
-                String[] orderby2 = orderby[1].split(" ");
-                ArrayList<City> cityOrder = new ArrayList<>();
-                for (int i = 0; i < cities.size(); i++) {
-                    if (cities.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
-                        cityOrder.add(cities.get(i));
-                    }
-                }
-                Collections.sort(cityOrder, (a, b) -> {
-                    return a.getName().compareTo(b.getName());
-                });
-                for (int i = 0; i < cityOrder.size(); i++) {
-                    info += cityOrder.get(i).toString();
-                }
-                return info;
-
-            }
-        }
-
         if (command.contains("=")) {
             String[] orderby = command.split("=");
             String[] orderby2 = orderby[1].split(" ");
             ArrayList<City> populationSort = new ArrayList<>();
             if (orderby[1].contains("ORDER BY population")) {
-                String filter = orderby2[1].replaceAll(" ","");
-                for (int i = 0; i < cities.size(); i++) {
-                    if(filter.equals(cities.get(i).getName().replaceAll(" ",""))){
-                        populationSort.add(cities.get(i));
-                    }
-                }
-                Collections.sort(populationSort,(a,b)->{
-                    if(a.getPopulation() < b.getPopulation()){
-                        return 1;
-                    }else{
-                        return -1;
-                    }
-                });
-                info += ("\nOrden de las ciudades por población:\n");
-                for (int i = 0; i < populationSort.size(); i++) {
-                    info += (populationSort.get(i).toString());
-                }
-                return info;
-            } else if ((orderby[1].contains("ORDER BY name"))) {
                 String filter = orderby2[1].replaceAll(" ", "");
                 for (int i = 0; i < cities.size(); i++) {
                     if (filter.equals(cities.get(i).getName().replaceAll(" ", ""))) {
@@ -353,27 +292,21 @@ public class Controller {
                     }
                 }
                 Collections.sort(populationSort, (a, b) -> {
-                    return a.getName().compareTo(b.getName());
+                    if (a.getPopulation() < b.getPopulation()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
                 });
-                info += ("\nOrden de las ciudades por nombre:\n");
+                System.out.println("\nOrden de las ciudades por población:\n");
                 for (int i = 0; i < populationSort.size(); i++) {
-                    info += (populationSort.get(i).toString());
+                    System.out.println(populationSort.get(i).toString());
                 }
-                return info;
             }
 
         }
         return "";
     }
-
-    public void deletCityNoCountry(Country country) {
-        for (int i = cities.size() - 1; i > 0; i--) {
-            if (country.getId().equals(cities.get(i).getCountryID())) {
-                cities.remove(i);
-            }
-        }
-    }
-
 
 
     public String select(String command) throws FormatIncorrect {
@@ -388,37 +321,36 @@ public class Controller {
 
         if (command.startsWith(comandSelect + " countries WHERE population")) {
             if (command.startsWith(comandSelect + " countries WHERE population < ")) {
-
                 String[] countries1 = command.split("<");
                 double pop = Double.parseDouble(countries1[1]);
                 return filter(pop, "2");
 
-            } else if (command.startsWith(comandSelect + " countries WHERE population > ")){
+            } else if (command.startsWith(comandSelect + " countries WHERE population > ")) {
                 String[] countries1 = command.split(">");
                 double pop = Double.parseDouble(countries1[1]);
-                return filter(pop,"1");
+                return filter(pop, "1");
 
-            }else if(command.startsWith(comandSelect + " countries WHERE population = ")){
+            } else if (command.startsWith(comandSelect + " countries WHERE population = ")) {
                 String[] countries1 = command.split("=");
 
                 double pop = Double.parseDouble(countries1[1]);
                 return filter(pop, "=");
 
-            }else {
+            } else {
                 throw new FormatIncorrect();
             }
-        }else if(command.startsWith(comandSelect + " cities WHERE population")){
-            if (command.startsWith(comandSelect + " cities WHERE population < ")){
+        } else if (command.startsWith(comandSelect + " cities WHERE population")) {
+            if (command.startsWith(comandSelect + " cities WHERE population < ")) {
                 String[] cities1 = command.split("<");
                 double pop = Double.parseDouble(cities1[1]);
                 return filter2(pop, "2");
 
-            } else if (command.startsWith(comandSelect + " cities WHERE population > ")){
+            } else if (command.startsWith(comandSelect + " cities WHERE population > ")) {
                 String[] cities1 = command.split(">");
                 double pop = Double.parseDouble(cities1[1]);
                 return filter2(pop, "1");
 
-            } else if (command.startsWith(comandSelect + " cities WHERE population = ")){
+            } else if (command.startsWith(comandSelect + " cities WHERE population = ")) {
                 String[] cities1 = command.split("=");
 
                 double pop = Double.parseDouble(cities1[1]);
@@ -429,26 +361,27 @@ public class Controller {
             }
         }
 
-        if (command.startsWith(comandSelect + " countries WHERE name =")){
+        if (command.startsWith(comandSelect + " countries WHERE name =")) {
             String[] countries1 = command.split("=");
 
-            if ((searchCountries(null, countries1[1], null)) != null){
+            if ((searchCountries(null, countries1[1], null)) != null) {
                 String info = "";
+
                 for (int i = 0; i < countries.size(); i++) {
-                    if (countries1[1].equals(countries.get(i).getName())){
+                    if (countries1[1].equals(countries.get(i).getName())) {
                         info += countries.get(i).toString();
                     }
                 }
                 return "The country exists:\n" + info;
             }
-        }else if(command.startsWith(comandSelect + " cities WHERE name =")){
+        } else if (command.startsWith(comandSelect + " cities WHERE name =")) {
             String[] cities1 = command.split("=");
 
             if ((searchCities(null, cities1[1])) != null) {
                 String info = "";
 
                 for (int i = 0; i < cities.size(); i++) {
-                    if (cities1[1].equals(cities.get(i).getName())){
+                    if (cities1[1].equals(cities.get(i).getName())) {
                         info += cities.get(i).toString();
                     }
                 }
@@ -456,14 +389,14 @@ public class Controller {
             }
         }
 
-        if (command.startsWith(comandSelect + " countries WHERE countryCode =")){
+        if (command.startsWith(comandSelect + " countries WHERE countryCode =")) {
             String[] countries1 = command.split("=");
 
-            if ((searchCountries(null, null, countries1[1])) != null){
+            if ((searchCountries(null, null, countries1[1])) != null) {
                 String info = "";
 
                 for (int i = 0; i < countries.size(); i++) {
-                    if (countries1[1].equals(countries.get(i).getCountryCode())){
+                    if (countries1[1].equals(countries.get(i).getCountryCode())) {
                         info += countries.get(i).toString();
                     }
                 }
@@ -475,27 +408,27 @@ public class Controller {
         return "";
     }
 
-    public String filter(double population,String minMax){
+    public String filter(double population, String minMax) {
 
         String info = "";
-        if (minMax.equals("1")){
+        if (minMax.equals("1")) {
             //Mayor
             for (int i = 0; i < countries.size(); i++) {
-                if(countries.get(i).getPopulation() > population){
+                if (countries.get(i).getPopulation() > population) {
                     info += countries.get(i).toString();
                 }
             }
-        }else if (minMax.equals("2")){
+        } else if (minMax.equals("2")) {
             //Menor
             for (int i = 0; i < countries.size(); i++) {
-                if(countries.get(i).getPopulation() < population){
+                if (countries.get(i).getPopulation() < population) {
                     info += countries.get(i).toString();
                 }
             }
-        }else if (minMax.equals("=")) {
+        } else if (minMax.equals("=")) {
             //Igual
             for (int i = 0; i < countries.size(); i++) {
-                if(countries.get(i).getPopulation() == population){
+                if (countries.get(i).getPopulation() == population) {
                     info += countries.get(i).toString();
                 }
             }
@@ -504,27 +437,27 @@ public class Controller {
         return info;
     }
 
-    public String filter2(double population,String minMax){
+    public String filter2(double population, String minMax) {
 
         String info = "";
-        if (minMax.equals("1")){
+        if (minMax.equals("1")) {
             //Mayor
             for (int i = 0; i < cities.size(); i++) {
-                if(cities.get(i).getPopulation() > population){
+                if (cities.get(i).getPopulation() > population) {
                     info += cities.get(i).toString();
                 }
             }
-        }else if (minMax.equals("2")){
+        } else if (minMax.equals("2")) {
             //Menor
             for (int i = 0; i < cities.size(); i++) {
-                if(cities.get(i).getPopulation() < population){
+                if (cities.get(i).getPopulation() < population) {
                     info += cities.get(i).toString();
                 }
             }
-        }else if (minMax.equals("=")) {
+        } else if (minMax.equals("=")) {
             //Igual
             for (int i = 0; i < cities.size(); i++) {
-                if(cities.get(i).getPopulation() == population){
+                if (cities.get(i).getPopulation() == population) {
                     info += cities.get(i).toString();
                 }
             }
@@ -590,7 +523,7 @@ public class Controller {
 
                 return info;
 
-            }else if(command.startsWith(comandDelete + " countries WHERE population = ")){
+            } else if (command.startsWith(comandDelete + " countries WHERE population = ")) {
                 String[] countries1 = command.split("=");
 
                 double pop = Double.parseDouble(countries1[1]);
@@ -604,10 +537,10 @@ public class Controller {
 
                 return info;
 
-            }else {
+            } else {
                 throw new FormatIncorrect();
             }
-        }else if (command.startsWith(comandDelete + " cities WHERE population")) {
+        } else if (command.startsWith(comandDelete + " cities WHERE population")) {
             if (command.startsWith(comandDelete + " cities WHERE population < ")) {
                 String[] cities1 = command.split("<");
                 double pop = Double.parseDouble(cities1[1]);
@@ -634,7 +567,7 @@ public class Controller {
 
                 return info;
 
-            }else if(command.startsWith(comandDelete + " cities WHERE population = ")){
+            } else if (command.startsWith(comandDelete + " cities WHERE population = ")) {
                 String[] cities1 = command.split("=");
 
                 double pop = Double.parseDouble(cities1[1]);
@@ -648,7 +581,7 @@ public class Controller {
 
                 return info;
 
-            }else {
+            } else {
                 throw new FormatIncorrect();
             }
         }
@@ -660,7 +593,7 @@ public class Controller {
                 String info = "";
 
                 for (int i = 0; i < countries.size(); i++) {
-                    if (countries1[1].equals(countries.get(i).getName())){
+                    if (countries1[1].equals(countries.get(i).getName())) {
                         countries.remove(i);
                     }
                 }
@@ -673,14 +606,14 @@ public class Controller {
 
                 return "Countries eliminated";
             }
-        }else if(command.startsWith(comandDelete + " cities WHERE name =")){
+        } else if (command.startsWith(comandDelete + " cities WHERE name =")) {
             String[] cities1 = command.split("=");
 
             if ((searchCities(null, cities1[1])) != null) {
                 String info = "";
 
                 for (int i = 0; i < cities.size(); i++) {
-                    if (cities1[1].equals(cities.get(i).getName())){
+                    if (cities1[1].equals(cities.get(i).getName())) {
                         cities.remove(i);
                     }
                 }
@@ -693,24 +626,39 @@ public class Controller {
 
                 return "Cities eliminated";
             }
+        } else if (command.startsWith(comandDelete + " cities WHERE country =")) {
+            String[] citiesOfCountries = command.split("=");
+            Country a = new Country("123", "Colombia", 1234, "1234");
+            for (int i = countries.size() - 1; i >= 0; i--) {
+
+                if(countries.get(i).getName().equals(citiesOfCountries[1])){
+                    System.out.println("ENTRA");
+                    if(countries.get(i).getId().equals(cities.get(i).getCountryID())){
+                        System.out.println("ENTRA DE NUEVO");
+                        cities.remove(i);
+                    }
+
+                }
+
+            }
+
+            FileOutputStream fos = new FileOutputStream("Cities.SQL");
+            Gson gson = new Gson();
+            String json = gson.toJson(cities);
+            fos.write(json.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+
+            return "Cities from " + citiesOfCountries[1].replaceAll(" ","") + " eliminated";
+
         }
 
         return "";
-    }
-
-    public void saveCities() throws IOException {
-        FileOutputStream fos2 = new FileOutputStream("Cities.SQL");
-        Gson gson2 = new Gson();
-        String json2 = gson2.toJson(cities);
-        fos2.write(json2.getBytes(StandardCharsets.UTF_8));
-        fos2.close();
     }
 
     public String deleteCountries() {
 
         String info = "";
         for (int i = countries.size() - 1; i >= 0; i--) {
-
             countries.remove(i);
             info = "Countries eliminated";
         }
@@ -721,7 +669,7 @@ public class Controller {
     public String deleteCities() {
 
         String info = "";
-        for (int i = cities.size() - 1; i >= 0; i--){
+        for (int i = cities.size() - 1; i >= 0; i--) {
             cities.remove(i);
             info = "Cities eliminated";
         }
@@ -729,30 +677,29 @@ public class Controller {
         return info;
     }
 
-    public String findDelete(double population,String minMax){
+    public String findDelete(double population, String minMax) {
 
         String info = "";
-        if (minMax.equals("1")){
+        if (minMax.equals("1")) {
             //Mayor
             for (int i = countries.size() - 1; i >= 0; i--) {
                 if (countries.get(i).getPopulation() > population) {
-                    deletCityNoCountry(countries.get(i));
                     countries.remove(i);
                     info = "Countries eliminated";
                 }
             }
-        }else if (minMax.equals("2")){
+        } else if (minMax.equals("2")) {
             //Menor
             for (int i = countries.size() - 1; i >= 0; i--) {
-                if(countries.get(i).getPopulation() < population){
+                if (countries.get(i).getPopulation() < population) {
                     countries.remove(i);
                     info = "Countries eliminated";
                 }
             }
-        }else if (minMax.equals("=")) {
+        } else if (minMax.equals("=")) {
             //Igual
             for (int i = countries.size() - 1; i >= 0; i--) {
-                if(countries.get(i).getPopulation() == population){
+                if (countries.get(i).getPopulation() == population) {
                     countries.remove(i);
                     info = "Countries eliminated";
                 }
@@ -762,29 +709,29 @@ public class Controller {
         return info;
     }
 
-    public String findDelete2(double population,String minMax){
+    public String findDelete2(double population, String minMax) {
 
         String info = "";
-        if (minMax.equals("1")){
+        if (minMax.equals("1")) {
             //Mayor
-            for (int i = cities.size()-1; i >= 0; i--) {
-                if(cities.get(i).getPopulation() > population){
+            for (int i = cities.size() - 1; i >= 0; i--) {
+                if (cities.get(i).getPopulation() > population) {
                     cities.remove(i);
                     info = "Cities eliminated";
                 }
             }
-        }else if (minMax.equals("2")){
+        } else if (minMax.equals("2")) {
             //Menor
             for (int i = cities.size() - 1; i >= 0; i--) {
-                if(cities.get(i).getPopulation() < population){
+                if (cities.get(i).getPopulation() < population) {
                     cities.remove(i);
                     info = "Cities eliminated";
                 }
             }
-        }else if (minMax.equals("=")) {
+        } else if (minMax.equals("=")) {
             //Igual
             for (int i = cities.size() - 1; i >= 0; i--) {
-                if(cities.get(i).getPopulation() == population){
+                if (cities.get(i).getPopulation() == population) {
                     cities.remove(i);
                     info = "Cities eliminated";
                 }

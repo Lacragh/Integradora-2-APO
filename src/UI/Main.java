@@ -4,8 +4,10 @@ import Exceptions.FormatIncorrect;
 import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
 import Model.Controller;
+
 import java.io.IOException;
 import java.util.Scanner;
+
 public class Main {
 
     public static Controller controller;
@@ -93,10 +95,14 @@ public class Main {
 
         } else if (command.startsWith("INSERT INTO cities(id, name, countryID, population) VALUES")) {
 
-            try {
-                controller.addCities(command);
-            } catch (NotFoundCountryID | FormatIncorrect e) {
-                throw new RuntimeException(e);
+            if(!proveUUID(command)){
+                System.out.println("The uuid format is incorrect!\n");
+            }else{
+                try {
+                    controller.addCities(command);
+                } catch (NotFoundCountryID | FormatIncorrect e) {
+                    throw new RuntimeException(e);
+                }
             }
 
         } else if (command.contains("ORDER BY")) {
@@ -137,7 +143,7 @@ public class Main {
                 }
 
             } catch (FormatIncorrect | IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         } else if (command.startsWith("DELETE FROM cities")) {
 
@@ -180,5 +186,4 @@ public class Main {
 
         return true;
     }
-
 }
