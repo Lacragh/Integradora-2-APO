@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="main arreglado">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="Comeback">
       <change beforePath="$PROJECT_DIR$/Cities.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/Cities.SQL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
-    </list>
-    <list id="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" name="Changes by Luispi" comment="Changes by Luispi">
       <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
-    <list id="9fee7629-9934-4aaf-9ae7-818085dd6f31" name="Changes by USER" comment="">
+    <list id="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" name="Changes by Luispi" comment="Changes by Luispi">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/Model/ControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/Model/ControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
+    </list>
+    <list id="9fee7629-9934-4aaf-9ae7-818085dd6f31" name="Changes by USER" comment="Change">
       <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,35 +32,63 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/UI/Main.java">
+      <ranges>
+        <range start1="16" end1="17" start2="16" end2="17" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="28" end1="29" start2="28" end2="33" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="31" end1="31" start2="35" end2="39" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="77" end1="81" start2="85" end2="86" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="84" end1="85" start2="89" end2="90" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="86" end1="87" start2="91" end2="92" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="89" end1="90" start2="94" end2="94" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="96" end1="106" start2="100" end2="114" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="168" end1="176" start2="176" end2="185" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
+        <range start1="177" end1="184" start2="186" end2="199" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="186" end1="187" start2="201" end2="201" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="188" end1="188" start2="202" end2="203" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+      </ranges>
+    </file>
     <file path="$PROJECT_DIR$/src/Model/Controller.java">
       <ranges>
-        <range start1="82" end1="88" start2="82" end2="102" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
-        <range start1="221" end1="232" start2="235" end2="241" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="233" end1="233" start2="242" end2="250" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="234" end1="235" start2="251" end2="252" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="238" end1="239" start2="255" end2="256" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="261" end1="262" start2="278" end2="279" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="282" end1="282" start2="299" end2="344" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
-        <range start1="405" end1="405" start2="467" end2="495" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="473" end1="473" start2="563" end2="564" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="474" end1="479" start2="565" end2="567" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="484" end1="489" start2="572" end2="573" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="500" end1="505" start2="584" end2="586" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="517" end1="522" start2="598" end2="600" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="531" end1="536" start2="609" end2="611" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="548" end1="553" start2="623" end2="624" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="561" end1="566" start2="632" end2="633" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="575" end1="580" start2="642" end2="643" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="591" end1="593" start2="654" end2="657" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="605" end1="605" start2="669" end2="671" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="612" end1="613" start2="678" end2="678" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="620" end1="625" start2="685" end2="686" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="628" end1="629" start2="689" end2="727" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="630" end1="632" start2="728" end2="728" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
-        <range start1="633" end1="640" start2="729" end2="732" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
-        <range start1="644" end1="649" start2="736" end2="737" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
-        <range start1="650" end1="651" start2="738" end2="739" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
-        <range start1="743" end1="743" start2="831" end2="845" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="5" end1="5" start2="5" end2="6" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="242" end1="242" start2="243" end2="251" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="243" end1="243" start2="252" end2="253" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="244" end1="244" start2="254" end2="264" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="247" end1="248" start2="267" end2="268" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="270" end1="271" start2="290" end2="291" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="291" end1="292" start2="311" end2="312" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="314" end1="315" start2="334" end2="335" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="335" end1="335" start2="355" end2="435" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="336" end1="337" start2="436" end2="485" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="354" end1="355" start2="502" end2="503" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="356" end1="357" start2="504" end2="505" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="358" end1="358" start2="506" end2="507" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="361" end1="361" start2="510" end2="511" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="460" end1="460" start2="610" end2="651" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="527" end1="527" start2="718" end2="719" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="528" end1="533" start2="720" end2="722" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="538" end1="543" start2="727" end2="728" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="554" end1="559" start2="739" end2="741" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="571" end1="576" start2="753" end2="755" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="585" end1="590" start2="764" end2="766" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="602" end1="607" start2="778" end2="779" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="615" end1="620" start2="787" end2="788" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="629" end1="634" start2="797" end2="798" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="645" end1="647" start2="809" end2="812" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="654" end1="659" start2="819" end2="821" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="666" end1="667" start2="828" end2="828" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="674" end1="679" start2="835" end2="836" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="682" end1="683" start2="839" end2="878" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="692" end1="697" start2="887" end2="888" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="727" end1="728" start2="918" end2="919" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="732" end1="734" start2="923" end2="926" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="741" end1="742" start2="933" end2="935" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="749" end1="750" start2="942" end2="944" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="759" end1="760" start2="953" end2="954" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="765" end1="766" start2="959" end2="960" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="772" end1="774" start2="966" end2="968" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="778" end1="779" start2="972" end2="973" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="780" end1="782" start2="974" end2="976" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
       </ranges>
     </file>
   </component>
@@ -116,14 +146,77 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="gson-2.9.1.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/src/lib/gson-2.9.1.jar" />
-      <method v="2" />
+    <configuration name="ControllerTest.deleteTest1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Integradora 2 APO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.ControllerTest" />
+      <option name="METHOD_NAME" value="deleteTest1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.deleteTest2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Integradora 2 APO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.ControllerTest" />
+      <option name="METHOD_NAME" value="deleteTest2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.selectTest2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Integradora 2 APO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.ControllerTest" />
+      <option name="METHOD_NAME" value="selectTest2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.selectTest3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Integradora 2 APO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.ControllerTest" />
+      <option name="METHOD_NAME" value="selectTest3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ControllerTest.selectTest3" />
+        <item itemvalue="JUnit.ControllerTest.selectTest2" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JAR Application.gson-2.9.1.jar" />
+        <item itemvalue="JUnit.ControllerTest.deleteTest2" />
+        <item itemvalue="JUnit.ControllerTest.deleteTest1" />
       </list>
     </recent_temporary>
   </component>
@@ -143,7 +236,7 @@
       <workItem from="1667185556764" duration="8384000" />
       <workItem from="1667225726794" duration="618000" />
       <workItem from="1667231928426" duration="1231000" />
-      <workItem from="1667350703658" duration="7895000" />
+      <workItem from="1667350703658" duration="13702000" />
     </task>
     <task id="LOCAL-00001" summary="Clases principales creadas y atributos">
       <created>1666646216680</created>
@@ -264,7 +357,28 @@
       <option name="project" value="LOCAL" />
       <updated>1667357705575</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Comeback">
+      <created>1667359001771</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1667359001771</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Changes by Luispi">
+      <created>1667359015821</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1667359015821</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Comeback">
+      <created>1667359064115</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1667359064115</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,9 +409,11 @@
     <MESSAGE value="Implementacion de todos los requerimientos completa sin revision" />
     <MESSAGE value="Cambios en el main" />
     <MESSAGE value="Pruebas" />
-    <MESSAGE value="Changes by Luispi" />
     <MESSAGE value="main arreglado" />
-    <option name="LAST_COMMIT_MESSAGE" value="main arreglado" />
+    <MESSAGE value="Changes by Luispi" />
+    <MESSAGE value="Change" />
+    <MESSAGE value="Comeback" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comeback" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

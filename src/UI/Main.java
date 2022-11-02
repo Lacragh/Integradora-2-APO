@@ -175,14 +175,15 @@ public class Main {
 
     }
 
-    public static boolean proveUUID(String command) {
-        int count = 0;
-        String[] commandSplit = command.split("VALUES");
-        String[] commandSplit2 = commandSplit[1].split(",");
-        char[] uuidCommand = commandSplit2[0].replaceAll("\\(", "").replaceAll(" ", "").toCharArray();
-        String a = commandSplit2[0].replaceAll("\\(", "").replaceAll(" ", "");
-        String[] commandSplit3 = a.split("'");
-        String commandSplit4 = commandSplit3[1].replaceAll("-", "");
+    public static boolean proveUUID(String command) throws FormatIncorrect {
+        try {
+            int count = 0;
+            String[] commandSplit = command.split("VALUES");
+            String[] commandSplit2 = commandSplit[1].split(",");
+            char[] uuidCommand = commandSplit2[0].replaceAll("\\(", "").replaceAll(" ", "").toCharArray();
+            String a = commandSplit2[0].replaceAll("\\(", "").replaceAll(" ", "");
+            String[] commandSplit3 = a.split("'");
+            String commandSplit4 = commandSplit3[1].replaceAll("-", "");
 
             for (int i = 0; i < uuidCommand.length; i++) {
                 if (uuidCommand[i] == '-') {
