@@ -3,6 +3,7 @@ package Model;
 import Exceptions.FormatIncorrect;
 import Exceptions.IDused;
 import Exceptions.NotFoundCountryID;
+import UI.Main;
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -241,11 +242,22 @@ public class Controller {
         fos.close();
     }
 
+    public void loadSQL(String text) throws IOException {
 
+        FileInputStream fis = new FileInputStream(text);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(fis)
+        );
+
+        String line = "";
+        while ((line = reader.readLine()) != null){
+           Main.insertCommand(line);
+        }
+    }
 
     public String orderBy(String command) {
         String info = "";
-        if (command.contains("<") && command.contains("countries")) {
+        if (command.contains("<") && command.contains("countries") && command.contains("name")) {
             String[] orderby = command.split("<");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -268,7 +280,7 @@ public class Controller {
 
         }
 
-        if (command.contains(">") && command.contains("countries")) {
+        if (command.contains(">") && command.contains("countries")&& command.contains("name")) {
             String[] orderby = command.split(">");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -289,7 +301,7 @@ public class Controller {
             }
         }
 
-        if (command.contains("<") && command.contains("cities")) {
+        if (command.contains("<") && command.contains("cities")&& command.contains("name")) {
             String[] orderby = command.split("<");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -312,7 +324,7 @@ public class Controller {
 
         }
 
-        if (command.contains(">") && command.contains("cities")) {
+        if (command.contains(">") && command.contains("cities")&& command.contains("name")) {
             String[] orderby = command.split(">");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -333,8 +345,136 @@ public class Controller {
             }
         }
 
+        //PAISES Y CIUDADES POR BY NAME
 
-        if (command.contains("=")) {
+        if (command.contains("<") && command.contains("countries") && command.contains("population")) {
+            String[] orderby = command.split("<");
+            if (orderby[1].contains("ORDER BY name")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<Country> countryOrder = new ArrayList<>();
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        countryOrder.add(countries.get(i));
+                    }
+                }
+                Collections.sort(countryOrder, (a, b) -> {
+                    if (a.getPopulation() < b.getPopulation()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+                for (int i = 0; i < countryOrder.size(); i++) {
+                    info += countryOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains(">") && command.contains("countries")&& command.contains("population")) {
+            String[] orderby = command.split(">");
+            if (orderby[1].contains("ORDER BY name")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<Country> countryOrder = new ArrayList<>();
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries.get(i).getPopulation() > Integer.parseInt(orderby2[1])) {
+                        countryOrder.add(countries.get(i));
+                    }
+                }
+                Collections.sort(countryOrder, (a, b) -> {
+                    if (a.getPopulation() < b.getPopulation()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+                for (int i = 0; i < countryOrder.size(); i++) {
+                    info += countryOrder.get(i).toString();
+                }
+                return info;
+
+            }
+        }
+
+        if (command.contains("<") && command.contains("cities")&& command.contains("population")) {
+            String[] orderby = command.split("<");
+            if (orderby[1].contains("ORDER BY name")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<City> cityOrder = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        cityOrder.add(cities.get(i));
+                    }
+                }
+                Collections.sort(cityOrder, (a, b) -> {
+                    if (a.getPopulation() < b.getPopulation()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+                for (int i = 0; i < cityOrder.size(); i++) {
+                    info += cityOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains(">") && command.contains("cities")&& command.contains("population")) {
+            String[] orderby = command.split(">");
+            if (orderby[1].contains("ORDER BY name")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<City> cityOrder = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getPopulation() > Integer.parseInt(orderby2[1])) {
+                        cityOrder.add(cities.get(i));
+                    }
+                }
+                Collections.sort(cityOrder, (a, b) -> {
+                    if (a.getPopulation() < b.getPopulation()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                });
+                for (int i = 0; i < cities.size(); i++) {
+                    info += cities.get(i).toString();
+                }
+                return info;
+
+            }
+        }
+
+        if (command.contains("=") && command.contains("name")) {
+            String[] orderby = command.split("=");
+            String[] orderby2 = orderby[1].split(" ");
+            ArrayList<City> populationSort = new ArrayList<>();
+            if (orderby[1].contains("ORDER BY population")) {
+                String filter = orderby2[1].replaceAll(" ", "");
+                for (int i = 0; i < cities.size(); i++) {
+                    if (filter.equals(cities.get(i).getName().replaceAll(" ", ""))) {
+                        populationSort.add(cities.get(i));
+                    }
+                }
+                Collections.sort(populationSort, (a, b) -> {
+                    return a.getName().compareTo(b.getName());
+                });
+                info += ("\nOrden de las ciudades por población:\n");
+                for (int i = 0; i < populationSort.size(); i++) {
+                    info += (populationSort.get(i).toString());
+                }
+                return info;
+            }
+
+        }
+
+        if (command.contains("=") && command.contains("population")) {
             String[] orderby = command.split("=");
             String[] orderby2 = orderby[1].split(" ");
             ArrayList<City> populationSort = new ArrayList<>();
@@ -352,13 +492,15 @@ public class Controller {
                         return -1;
                     }
                 });
-                System.out.println("\nOrden de las ciudades por población:\n");
+                info += ("\nOrden de las ciudades por población:\n");
                 for (int i = 0; i < populationSort.size(); i++) {
-                    System.out.println(populationSort.get(i).toString());
+                    info += (populationSort.get(i).toString());
                 }
+                return info;
             }
 
         }
+
         return "";
     }
 

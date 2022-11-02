@@ -14,7 +14,7 @@ public class Main {
     public static Scanner reader;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         menu();
         int exit = 0;
@@ -26,9 +26,17 @@ public class Main {
             switch (menu) {
 
                 case 1:
-                    insertCommand();
+                    System.out.println("Please insert the command\n");
+                    String command = reader.nextLine();
+                    command = reader.nextLine();
+
+                    insertCommand(command);
                     break;
                 case 2:
+                    System.out.println("Please type the name of archive SQL like this.(Ejem.SQL");
+                    System.out.println("Datos1.SQL");
+                    String sql = reader.next();
+                    controller.loadSQL(sql);
 
                     break;
                 case 3:
@@ -75,16 +83,13 @@ public class Main {
 
     }
 
-    public static void insertCommand() {
-        System.out.println("Please insert the command\n");
-        String command = reader.nextLine();
-        command = reader.nextLine();
+    public static void insertCommand(String command) {
 
         if (command.startsWith("INSERT INTO countries(id, name, population, countryCode) VALUES")) {
 
-            if(!proveUUID(command)){
+            if (!proveUUID(command)) {
                 System.out.println("The uuid format is incorrect!\n");
-            }else{
+            } else {
                 try {
                     controller.addCountry(command);
                     System.out.println(controller.showCountries());
@@ -94,16 +99,20 @@ public class Main {
             }
 
         } else if (command.startsWith("INSERT INTO cities(id, name, countryID, population) VALUES")) {
-
-            if(!proveUUID(command)){
-                System.out.println("The uuid format is incorrect!\n");
-            }else{
-                try {
-                    controller.addCities(command);
-                } catch (NotFoundCountryID | FormatIncorrect e) {
-                    e.printStackTrace();
+            try{
+                if (!proveUUID(command)) {
+                    System.out.println("The uuid format is incorrect!\n");
+                } else {
+                    try {
+                        controller.addCities(command);
+                    } catch (NotFoundCountryID | FormatIncorrect e) {
+                        e.printStackTrace();
+                    }
                 }
+            }catch (FormatIncorrect e){
+                e.printStackTrace();
             }
+
 
         } else if (command.contains("ORDER BY")) {
             System.out.println(controller.orderBy(command));
@@ -175,15 +184,21 @@ public class Main {
         String[] commandSplit3 = a.split("'");
         String commandSplit4 = commandSplit3[1].replaceAll("-", "");
 
-        for (int i = 0; i < uuidCommand.length; i++) {
-            if (uuidCommand[i] == '-') {
-                count++;
+            for (int i = 0; i < uuidCommand.length; i++) {
+                if (uuidCommand[i] == '-') {
+                    count++;
+                }
             }
-        }
-        if (count != 4 || commandSplit4.length() != 32) {
-            return false;
+            if (count != 4 || commandSplit4.length() != 32) {
+                return false;
+            }
+
+            return true;
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new FormatIncorrect();
         }
 
-        return true;
     }
+
 }
