@@ -219,24 +219,19 @@ public class Controller {
         return info.toString();
     }
 
-
-    /*
-    private  boolean isNumeric(String cadena){
-        try {
-            cadena.trim();
-            System.out.println(cadena);
-            Integer.parseInt(cadena);
-            return true;
-        } catch (NumberFormatException nfe){
-            return false;
-        }
+    public void saveCities() throws IOException {
+        FileOutputStream fos = new FileOutputStream("Cities.SQL");
+        Gson gson = new Gson();
+        String json = gson.toJson(cities);
+        fos.write(json.getBytes(StandardCharsets.UTF_8));
+        fos.close();
     }
 
-     */
+
 
     public String orderBy(String command) {
         String info = "";
-        if (command.contains("<")) {
+        if (command.contains("<") && command.contains("countries")) {
             String[] orderby = command.split("<");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -259,7 +254,7 @@ public class Controller {
 
         }
 
-        if (command.contains(">")) {
+        if (command.contains(">") && command.contains("countries")) {
             String[] orderby = command.split(">");
             if (orderby[1].contains("ORDER BY name")) {
                 String[] orderby2 = orderby[1].split(" ");
@@ -279,6 +274,51 @@ public class Controller {
 
             }
         }
+
+        if (command.contains("<") && command.contains("cities")) {
+            String[] orderby = command.split("<");
+            if (orderby[1].contains("ORDER BY name")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<City> cityOrder = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        cityOrder.add(cities.get(i));
+                    }
+                }
+                Collections.sort(cityOrder, (a, b) -> {
+                    return a.getName().compareTo(b.getName());
+                });
+                for (int i = 0; i < cityOrder.size(); i++) {
+                    info += cityOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains(">") && command.contains("cities")) {
+            String[] orderby = command.split(">");
+            if (orderby[1].contains("ORDER BY name")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<City> cityOrder = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getPopulation() > Integer.parseInt(orderby2[1])) {
+                        cityOrder.add(cities.get(i));
+                    }
+                }
+                Collections.sort(cityOrder, (a, b) -> {
+                    return a.getName().compareTo(b.getName());
+                });
+                for (int i = 0; i < cities.size(); i++) {
+                    info += cities.get(i).toString();
+                }
+                return info;
+
+            }
+        }
+
 
         if (command.contains("=")) {
             String[] orderby = command.split("=");
@@ -740,5 +780,19 @@ public class Controller {
 
         return info;
     }
+
+    public void deleteCitiesNotCountries(Country country) {
+
+        for (int i = cities.size() - 1; i >= 0; i--) {
+
+            if (cities.get(i).getCountryID().equals(country.getId())) {
+                cities.remove(i);
+            }
+
+        }
+    }
+
+
+
 
 }

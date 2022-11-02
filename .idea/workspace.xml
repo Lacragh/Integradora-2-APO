@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="Pruebas">
-      <change afterPath="$PROJECT_DIR$/Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+    <list default="true" id="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" name="Changes" comment="main arreglado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cities.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/Cities.SQL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
+    </list>
+    <list id="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" name="Changes by Luispi" comment="Changes by Luispi">
       <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Main.java" afterDir="false" />
     </list>
-    <list id="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" name="Changes by Luispi" comment="">
-      <change beforePath="$PROJECT_DIR$/Test/Model/ControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/Model/ControllerTest.java" afterDir="false" />
+    <list id="9fee7629-9934-4aaf-9ae7-818085dd6f31" name="Changes by USER" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Model/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Controller.java" afterDir="false" />
     </list>
-    <list id="9fee7629-9934-4aaf-9ae7-818085dd6f31" name="Changes by USER" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +28,39 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/Model/Controller.java">
+      <ranges>
+        <range start1="82" end1="88" start2="82" end2="102" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
+        <range start1="221" end1="232" start2="235" end2="241" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="233" end1="233" start2="242" end2="250" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="234" end1="235" start2="251" end2="252" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="238" end1="239" start2="255" end2="256" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="261" end1="262" start2="278" end2="279" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="282" end1="282" start2="299" end2="344" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+        <range start1="405" end1="405" start2="467" end2="495" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="473" end1="473" start2="563" end2="564" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="474" end1="479" start2="565" end2="567" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="484" end1="489" start2="572" end2="573" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="500" end1="505" start2="584" end2="586" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="517" end1="522" start2="598" end2="600" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="531" end1="536" start2="609" end2="611" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="548" end1="553" start2="623" end2="624" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="561" end1="566" start2="632" end2="633" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="575" end1="580" start2="642" end2="643" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="591" end1="593" start2="654" end2="657" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="605" end1="605" start2="669" end2="671" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="612" end1="613" start2="678" end2="678" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="620" end1="625" start2="685" end2="686" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="628" end1="629" start2="689" end2="727" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="630" end1="632" start2="728" end2="728" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
+        <range start1="633" end1="640" start2="729" end2="732" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
+        <range start1="644" end1="649" start2="736" end2="737" changelist="9fee7629-9934-4aaf-9ae7-818085dd6f31" />
+        <range start1="650" end1="651" start2="738" end2="739" changelist="cd6a8ae7-b1b1-4316-b11c-338b45ac26f4" />
+        <range start1="743" end1="743" start2="831" end2="845" changelist="0efe90af-d8a6-46e3-bcd9-2dd071ebb483" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -109,7 +143,7 @@
       <workItem from="1667185556764" duration="8384000" />
       <workItem from="1667225726794" duration="618000" />
       <workItem from="1667231928426" duration="1231000" />
-      <workItem from="1667350703658" duration="6429000" />
+      <workItem from="1667350703658" duration="7895000" />
     </task>
     <task id="LOCAL-00001" summary="Clases principales creadas y atributos">
       <created>1666646216680</created>
@@ -209,7 +243,28 @@
       <option name="project" value="LOCAL" />
       <updated>1667357222810</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="main arreglado">
+      <created>1667357672820</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1667357672820</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Changes by Luispi">
+      <created>1667357692479</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1667357692479</updated>
+    </task>
+    <task id="LOCAL-00017" summary="main arreglado">
+      <created>1667357705575</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1667357705575</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,7 +288,6 @@
     <MESSAGE value="Si" />
     <MESSAGE value="Cambios" />
     <MESSAGE value="Se realiza el main ajustes" />
-    <MESSAGE value="Changes by Luispi" />
     <MESSAGE value="Cambios by sanjo" />
     <MESSAGE value="Busqueda y filtrado completado" />
     <MESSAGE value="Changes by Luispi Filtrado" />
@@ -241,7 +295,9 @@
     <MESSAGE value="Implementacion de todos los requerimientos completa sin revision" />
     <MESSAGE value="Cambios en el main" />
     <MESSAGE value="Pruebas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pruebas" />
+    <MESSAGE value="Changes by Luispi" />
+    <MESSAGE value="main arreglado" />
+    <option name="LAST_COMMIT_MESSAGE" value="main arreglado" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
