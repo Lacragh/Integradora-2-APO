@@ -74,17 +74,21 @@ public class Main {
     }
 
     public static void insertCommand() {
-
         System.out.println("Please insert the command\n");
         String command = reader.nextLine();
         command = reader.nextLine();
+
         if (command.startsWith("INSERT INTO countries(id, name, population, countryCode) VALUES")) {
 
-            try {
-                controller.addCountry(command);
-                System.out.println(controller.showCountries());
-            } catch (FormatIncorrect | IDused e) {
-                e.printStackTrace();
+            if(!proveUUID(command)){
+                System.out.println("The uuid format is incorrect!\n");
+            }else{
+                try {
+                    controller.addCountry(command);
+                    System.out.println(controller.showCountries());
+                } catch (FormatIncorrect | IDused e) {
+                    e.printStackTrace();
+                }
             }
 
         } else if (command.startsWith("INSERT INTO cities(id, name, countryID, population) VALUES")) {
@@ -126,34 +130,55 @@ public class Main {
 
             try {
                 String info = controller.delete(command);
-                if(!info.equals("")){
+                if (!info.equals("")) {
                     System.out.println(info);
-                }else{
+                } else {
                     System.out.println("There are no countries with those specifications");
                 }
 
             } catch (FormatIncorrect | IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
-        }else if (command.startsWith("DELETE FROM cities")) {
+        } else if (command.startsWith("DELETE FROM cities")) {
 
             try {
                 String info = controller.delete(command);
-                if(!info.equals("")){
+                if (!info.equals("")) {
                     System.out.println(info);
-                }else{
+                } else {
                     System.out.println("There are no cities with those specifications");
                 }
 
             } catch (FormatIncorrect | IOException e) {
                 throw new RuntimeException(e);
             }
-        }else{
+        } else {
 
             System.out.println("The command that you inserted doesn't exist!");
 
         }
 
+    }
+
+    public static boolean proveUUID(String command) {
+        int count = 0;
+        String[] commandSplit = command.split("VALUES");
+        String[] commandSplit2 = commandSplit[1].split(",");
+        char[] uuidCommand = commandSplit2[0].replaceAll("\\(", "").replaceAll(" ", "").toCharArray();
+        String a = commandSplit2[0].replaceAll("\\(", "").replaceAll(" ", "");
+        String[] commandSplit3 = a.split("'");
+        String commandSplit4 = commandSplit3[1].replaceAll("-", "");
+
+        for (int i = 0; i < uuidCommand.length; i++) {
+            if (uuidCommand[i] == '-') {
+                count++;
+            }
+        }
+        if (count != 4 || commandSplit4.length() != 32) {
+            return false;
+        }
+
+        return true;
     }
 
 }
