@@ -1,0 +1,21 @@
+Index: Test/Model/ControllerTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Model;\r\n\r\nimport static org.junit.jupiter.api.Assertions.*;\r\n\r\nclass ControllerTest {\r\n\r\n    \r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Test/Model/ControllerTest.java b/Test/Model/ControllerTest.java
+--- a/Test/Model/ControllerTest.java	(revision 392430240d6b5b1eac968698e8c5312ba1efa7b5)
++++ b/Test/Model/ControllerTest.java	(date 1667357490834)
+@@ -4,6 +4,8 @@
+ 
+ class ControllerTest {
+ 
+-    
++    public void stage1(){
++
++    }
+ 
+ }
+\ No newline at end of file

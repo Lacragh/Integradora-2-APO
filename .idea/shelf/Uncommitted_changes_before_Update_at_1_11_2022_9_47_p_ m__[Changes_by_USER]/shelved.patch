@@ -1,0 +1,265 @@
+Index: src/Model/Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Model;\r\n\r\nimport Exceptions.FormatIncorrect;\r\nimport Exceptions.IDused;\r\nimport Exceptions.NotFoundCountryID;\r\nimport com.google.gson.Gson;\r\nimport com.google.gson.internal.bind.util.ISO8601Utils;\r\n\r\nimport java.io.*;\r\nimport java.nio.charset.StandardCharsets;\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport java.util.Collections;\r\n\r\npublic class Controller {\r\n\r\n    private final String comandInsert = \"INSERT INTO\";\r\n    private final String comandSelect = \"SELECT * FROM\";\r\n    private final String comandDelete = \"DELETE FROM\";\r\n    private static ArrayList<Country> countries;\r\n    private static ArrayList<City> cities;\r\n\r\n    public Controller() {\r\n        countries = new ArrayList<>();\r\n        cities = new ArrayList<>();\r\n    }\r\n\r\n    public boolean addCountry(String command) throws FormatIncorrect, IDused {\r\n\r\n        if (command.startsWith(comandInsert + \" countries(id, name, population, countryCode) VALUES\")) {\r\n            String[] array = command.split(\"VALUES\");\r\n            String[] arrayValues = array[1].replaceAll(\"\\\\(\", \"\").replaceAll(\"\\\\)\", \"\").split(\",\");\r\n\r\n            if (arrayValues[0].startsWith(\" '\") && arrayValues[0].endsWith(\"'\") &&\r\n                    arrayValues[1].startsWith(\" '\") && arrayValues[1].endsWith(\"'\") &&\r\n                    arrayValues[3].startsWith(\" '\") && arrayValues[3].endsWith(\"'\")) {\r\n\r\n                try {\r\n                    int count = 0;\r\n                    for (int i = 0; i < countriesSize(); i++) {\r\n                        if (arrayValues[0].equals(countries.get(i).getId())) {\r\n                            count += 1;\r\n                        }\r\n                    }\r\n\r\n                    if (count == 0) {\r\n                        countries.add(new Country(\r\n                                arrayValues[0], arrayValues[1], Double.parseDouble(arrayValues[2]), arrayValues[3]\r\n                        ));\r\n\r\n                        FileOutputStream fos = new FileOutputStream(\"Countries.SQL\");\r\n                        Gson gson = new Gson();\r\n                        String json = gson.toJson(countries);\r\n                        fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                        fos.close();\r\n                    } else {\r\n                        throw new IDused();\r\n                    }\r\n                } catch (IOException e) {\r\n                    throw new RuntimeException(e);\r\n                }\r\n            } else {\r\n                throw new FormatIncorrect();\r\n            }\r\n        } else {\r\n            throw new FormatIncorrect();\r\n        }\r\n        return true;\r\n    }\r\n\r\n\r\n    public boolean addCities(String command) throws NotFoundCountryID, FormatIncorrect {\r\n\r\n        if (command.startsWith(comandInsert + \" cities(id, name, countryID, population) VALUES\")) {\r\n            String[] array = command.split(\"VALUES\");\r\n            String[] arrayValues = array[1].replaceAll(\"\\\\(\", \"\").replaceAll(\"\\\\)\", \"\").split(\",\");\r\n\r\n            if (arrayValues[0].startsWith(\" '\") && arrayValues[0].endsWith(\"'\") &&\r\n                    arrayValues[1].startsWith(\" '\") && arrayValues[1].endsWith(\"'\") &&\r\n                    arrayValues[2].startsWith(\" '\") && arrayValues[2].endsWith(\"'\")\r\n            ) {\r\n\r\n                if (searchCountries(arrayValues[2], null, null) != null) {\r\n                    try {\r\n                        cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));\r\n                        FileOutputStream fos = new FileOutputStream(\"Cities.SQL\");\r\n                        Gson gson = new Gson();\r\n                        String json = gson.toJson(cities);\r\n                        fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                        fos.close();\r\n                    } catch (IOException e) {\r\n                        System.out.println(\"1rata\");\r\n                    }\r\n                } else {\r\n                    throw new NotFoundCountryID();\r\n                }\r\n\r\n\r\n            } else {\r\n                throw new FormatIncorrect();\r\n            }\r\n\r\n\r\n        } else {\r\n            throw new FormatIncorrect();\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n    public Country searchCountries(String id, String name, String countryCode) {\r\n\r\n        if (name != null) {\r\n            for (Country country : countries) {\r\n                if (country.getName().equals(name)) {\r\n                    return country;\r\n                }\r\n            }\r\n\r\n        }\r\n        if (id != null) {\r\n            for (Country country : countries) {\r\n                if (country.getId().equals(id)) {\r\n                    return country;\r\n                }\r\n            }\r\n        }\r\n        if (countryCode != null) {\r\n            for (Country country : countries) {\r\n                if (country.getCountryCode().equals(countryCode)) {\r\n                    return country;\r\n                }\r\n            }\r\n        }\r\n\r\n        return null;\r\n    }\r\n\r\n    public City searchCities(String id, String name) {\r\n\r\n        if (name != null) {\r\n            for (City city : cities) {\r\n                if (city.getName().equals(name)) {\r\n                    return city;\r\n                }\r\n            }\r\n\r\n        }\r\n        if (id != null) {\r\n            for (City city : cities) {\r\n                if (city.getId().equals(id)) {\r\n                    return city;\r\n                }\r\n            }\r\n        }\r\n\r\n        return null;\r\n    }\r\n\r\n    public void loadCities() throws IOException {\r\n        FileInputStream fis = new FileInputStream(\"Cities.SQL\");\r\n        BufferedReader reader = new BufferedReader(\r\n                new InputStreamReader(fis)\r\n        );\r\n\r\n        String json = \"\";\r\n        String line = \"\";\r\n        while ((line = reader.readLine()) != null) {\r\n            json += line;\r\n        }\r\n\r\n        Gson gson = new Gson();\r\n        City[] data = gson.fromJson(json, City[].class);\r\n        if (data != null) {\r\n            for (int i = 0; i < data.length; i++) {\r\n                cities.add(data[i]);\r\n            }\r\n        }\r\n    }\r\n\r\n    public void loadCountries() throws IOException {\r\n        FileInputStream fis = new FileInputStream(\"Countries.SQL\");\r\n        BufferedReader reader = new BufferedReader(\r\n                new InputStreamReader(fis)\r\n        );\r\n\r\n        String json = \"\";\r\n        String line = \"\";\r\n        while ((line = reader.readLine()) != null) {\r\n            json += line;\r\n        }\r\n\r\n        Gson gson = new Gson();\r\n        Country[] data = gson.fromJson(json, Country[].class);\r\n        if (data != null) {\r\n            for (int i = 0; i < data.length; i++) {\r\n                countries.add(data[i]);\r\n            }\r\n        }\r\n    }\r\n\r\n    public int countriesSize() {\r\n        return countries.size();\r\n    }\r\n\r\n    public String showCountries() {\r\n        StringBuilder info = new StringBuilder();\r\n        for (Country country : countries) {\r\n            info.append(country.toString());\r\n        }\r\n\r\n        return info.toString();\r\n    }\r\n\r\n    public String showCities() {\r\n        StringBuilder info = new StringBuilder();\r\n        for (City city : cities) {\r\n            info.append(city.toString());\r\n        }\r\n\r\n        return info.toString();\r\n    }\r\n\r\n\r\n    private boolean isNumeric(String cadena) {\r\n        try {\r\n            cadena.trim();\r\n            System.out.println(cadena);\r\n            Integer.parseInt(cadena);\r\n            return true;\r\n        } catch (NumberFormatException nfe){\r\n            return false;\r\n        }\r\n    }\r\n\r\n\r\n    public String orderBy(String command) {\r\n        String info = \"\";\r\n        if (command.contains(\"<\") && command.contains(\"countries\")) {\r\n            String[] orderby = command.split(\"<\");\r\n            if (orderby[1].contains(\"ORDER BY name\")) {\r\n                String[] orderby2 = orderby[1].split(\" \");\r\n                ArrayList<Country> countryOrder = new ArrayList<>();\r\n                for (int i = 0; i < countries.size(); i++) {\r\n                    if (countries.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {\r\n                        countryOrder.add(countries.get(i));\r\n                    }\r\n                }\r\n                Collections.sort(countryOrder, (a, b) -> {\r\n                    return a.getName().compareTo(b.getName());\r\n                });\r\n                for (int i = 0; i < countryOrder.size(); i++) {\r\n                    info += countryOrder.get(i).toString();\r\n                }\r\n                return info;\r\n\r\n            }\r\n\r\n\r\n        }\r\n\r\n        if (command.contains(\">\") && command.contains(\"countries\")) {\r\n            String[] orderby = command.split(\">\");\r\n            if (orderby[1].contains(\"ORDER BY name\")) {\r\n                String[] orderby2 = orderby[1].split(\" \");\r\n                ArrayList<Country> countryOrder = new ArrayList<>();\r\n                for (int i = 0; i < countries.size(); i++) {\r\n                    if (countries.get(i).getPopulation() > Integer.parseInt(orderby2[1])) {\r\n                        countryOrder.add(countries.get(i));\r\n                    }\r\n                }\r\n                Collections.sort(countryOrder, (a, b) -> {\r\n                    return a.getName().compareTo(b.getName());\r\n                });\r\n                for (int i = 0; i < countryOrder.size(); i++) {\r\n                    info += countryOrder.get(i).toString();\r\n                }\r\n                return info;\r\n\r\n            }\r\n        }\r\n\r\n        if (command.contains(\">\") && command.contains(\"cities\")) {\r\n            String[] orderby = command.split(\">\");\r\n            if (orderby[1].contains(\"ORDER BY name\")) {\r\n                String[] orderby2 = orderby[1].split(\" \");\r\n                ArrayList<City> cityOrder = new ArrayList<>();\r\n                for (int i = 0; i < cities.size(); i++) {\r\n                    if (cities.get(i).getPopulation() > Integer.parseInt(orderby2[1])) {\r\n                        cityOrder.add(cities.get(i));\r\n                    }\r\n                }\r\n                Collections.sort(cityOrder, (a, b) -> {\r\n                    return a.getName().compareTo(b.getName());\r\n                });\r\n                for (int i = 0; i < cityOrder.size(); i++) {\r\n                    info += cityOrder.get(i).toString();\r\n                }\r\n                return info;\r\n\r\n            }\r\n        }\r\n\r\n        if (command.contains(\"<\") && command.contains(\"cities\")) {\r\n            String[] orderby = command.split(\"<\");\r\n            if (orderby[1].contains(\"ORDER BY name\")) {\r\n                String[] orderby2 = orderby[1].split(\" \");\r\n                ArrayList<City> cityOrder = new ArrayList<>();\r\n                for (int i = 0; i < cities.size(); i++) {\r\n                    if (cities.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {\r\n                        cityOrder.add(cities.get(i));\r\n                    }\r\n                }\r\n                Collections.sort(cityOrder, (a, b) -> {\r\n                    return a.getName().compareTo(b.getName());\r\n                });\r\n                for (int i = 0; i < cityOrder.size(); i++) {\r\n                    info += cityOrder.get(i).toString();\r\n                }\r\n                return info;\r\n\r\n            }\r\n        }\r\n\r\n        if (command.contains(\"=\")) {\r\n            String[] orderby = command.split(\"=\");\r\n            String[] orderby2 = orderby[1].split(\" \");\r\n            ArrayList<City> populationSort = new ArrayList<>();\r\n            if (orderby[1].contains(\"ORDER BY population\")) {\r\n                String filter = orderby2[1].replaceAll(\" \",\"\");\r\n                for (int i = 0; i < cities.size(); i++) {\r\n                    if(filter.equals(cities.get(i).getName().replaceAll(\" \",\"\"))){\r\n                        populationSort.add(cities.get(i));\r\n                    }\r\n                }\r\n                Collections.sort(populationSort,(a,b)->{\r\n                    if(a.getPopulation() < b.getPopulation()){\r\n                        return 1;\r\n                    }else{\r\n                        return -1;\r\n                    }\r\n                });\r\n                info += (\"\\nOrden de las ciudades por población:\\n\");\r\n                for (int i = 0; i < populationSort.size(); i++) {\r\n                    info += (populationSort.get(i).toString());\r\n                }\r\n                return info;\r\n            } else if ((orderby[1].contains(\"ORDER BY name\"))) {\r\n                String filter = orderby2[1].replaceAll(\" \", \"\");\r\n                for (int i = 0; i < cities.size(); i++) {\r\n                    if (filter.equals(cities.get(i).getName().replaceAll(\" \", \"\"))) {\r\n                        populationSort.add(cities.get(i));\r\n                    }\r\n                }\r\n                Collections.sort(populationSort, (a, b) -> {\r\n                    return a.getName().compareTo(b.getName());\r\n                });\r\n                info += (\"\\nOrden de las ciudades por nombre:\\n\");\r\n                for (int i = 0; i < populationSort.size(); i++) {\r\n                    info += (populationSort.get(i).toString());\r\n                }\r\n                return info;\r\n            }\r\n\r\n        }\r\n        return \"\";\r\n    }\r\n\r\n    public void deletCityNoCountry(Country country) {\r\n        for (int i = cities.size() - 1; i > 0; i--) {\r\n            if (country.getId().equals(cities.get(i).getCountryID())) {\r\n                cities.remove(i);\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n    public String select(String command) throws FormatIncorrect {\r\n\r\n        //\r\n        if (command.equals(comandSelect + \" countries\")) {\r\n            return showCountries();\r\n        } else if (command.equals(comandSelect + \" cities\")) {\r\n            return showCities();\r\n        }\r\n        //\r\n\r\n        if (command.startsWith(comandSelect + \" countries WHERE population\")) {\r\n            if (command.startsWith(comandSelect + \" countries WHERE population < \")) {\r\n\r\n                String[] countries1 = command.split(\"<\");\r\n                double pop = Double.parseDouble(countries1[1]);\r\n                return filter(pop, \"2\");\r\n\r\n            } else if (command.startsWith(comandSelect + \" countries WHERE population > \")){\r\n                String[] countries1 = command.split(\">\");\r\n                double pop = Double.parseDouble(countries1[1]);\r\n                return filter(pop,\"1\");\r\n\r\n            }else if(command.startsWith(comandSelect + \" countries WHERE population = \")){\r\n                String[] countries1 = command.split(\"=\");\r\n\r\n                double pop = Double.parseDouble(countries1[1]);\r\n                return filter(pop, \"=\");\r\n\r\n            }else {\r\n                throw new FormatIncorrect();\r\n            }\r\n        }else if(command.startsWith(comandSelect + \" cities WHERE population\")){\r\n            if (command.startsWith(comandSelect + \" cities WHERE population < \")){\r\n                String[] cities1 = command.split(\"<\");\r\n                double pop = Double.parseDouble(cities1[1]);\r\n                return filter2(pop, \"2\");\r\n\r\n            } else if (command.startsWith(comandSelect + \" cities WHERE population > \")){\r\n                String[] cities1 = command.split(\">\");\r\n                double pop = Double.parseDouble(cities1[1]);\r\n                return filter2(pop, \"1\");\r\n\r\n            } else if (command.startsWith(comandSelect + \" cities WHERE population = \")){\r\n                String[] cities1 = command.split(\"=\");\r\n\r\n                double pop = Double.parseDouble(cities1[1]);\r\n                return filter2(pop, \"=\");\r\n\r\n            } else {\r\n                throw new FormatIncorrect();\r\n            }\r\n        }\r\n\r\n        if (command.startsWith(comandSelect + \" countries WHERE name =\")){\r\n            String[] countries1 = command.split(\"=\");\r\n\r\n            if ((searchCountries(null, countries1[1], null)) != null){\r\n                String info = \"\";\r\n                for (int i = 0; i < countries.size(); i++) {\r\n                    if (countries1[1].equals(countries.get(i).getName())){\r\n                        info += countries.get(i).toString();\r\n                    }\r\n                }\r\n                return \"The country exists:\\n\" + info;\r\n            }\r\n        }else if(command.startsWith(comandSelect + \" cities WHERE name =\")){\r\n            String[] cities1 = command.split(\"=\");\r\n\r\n            if ((searchCities(null, cities1[1])) != null) {\r\n                String info = \"\";\r\n\r\n                for (int i = 0; i < cities.size(); i++) {\r\n                    if (cities1[1].equals(cities.get(i).getName())){\r\n                        info += cities.get(i).toString();\r\n                    }\r\n                }\r\n                return \"The city exists:\\n\" + info;\r\n            }\r\n        }\r\n\r\n        if (command.startsWith(comandSelect + \" countries WHERE countryCode =\")){\r\n            String[] countries1 = command.split(\"=\");\r\n\r\n            if ((searchCountries(null, null, countries1[1])) != null){\r\n                String info = \"\";\r\n\r\n                for (int i = 0; i < countries.size(); i++) {\r\n                    if (countries1[1].equals(countries.get(i).getCountryCode())){\r\n                        info += countries.get(i).toString();\r\n                    }\r\n                }\r\n                return \"The country exists:\\n\" + info;\r\n            }\r\n        }\r\n\r\n\r\n        return \"\";\r\n    }\r\n\r\n    public String filter(double population,String minMax){\r\n\r\n        String info = \"\";\r\n        if (minMax.equals(\"1\")){\r\n            //Mayor\r\n            for (int i = 0; i < countries.size(); i++) {\r\n                if(countries.get(i).getPopulation() > population){\r\n                    info += countries.get(i).toString();\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"2\")){\r\n            //Menor\r\n            for (int i = 0; i < countries.size(); i++) {\r\n                if(countries.get(i).getPopulation() < population){\r\n                    info += countries.get(i).toString();\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"=\")) {\r\n            //Igual\r\n            for (int i = 0; i < countries.size(); i++) {\r\n                if(countries.get(i).getPopulation() == population){\r\n                    info += countries.get(i).toString();\r\n                }\r\n            }\r\n        }\r\n\r\n        return info;\r\n    }\r\n\r\n    public String filter2(double population,String minMax){\r\n\r\n        String info = \"\";\r\n        if (minMax.equals(\"1\")){\r\n            //Mayor\r\n            for (int i = 0; i < cities.size(); i++) {\r\n                if(cities.get(i).getPopulation() > population){\r\n                    info += cities.get(i).toString();\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"2\")){\r\n            //Menor\r\n            for (int i = 0; i < cities.size(); i++) {\r\n                if(cities.get(i).getPopulation() < population){\r\n                    info += cities.get(i).toString();\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"=\")) {\r\n            //Igual\r\n            for (int i = 0; i < cities.size(); i++) {\r\n                if(cities.get(i).getPopulation() == population){\r\n                    info += cities.get(i).toString();\r\n                }\r\n            }\r\n        }\r\n\r\n        return info;\r\n    }\r\n\r\n    public String delete(String command) throws FormatIncorrect, IOException {\r\n\r\n        //\r\n        if (command.equals(comandDelete + \" countries\")) {\r\n            String info = deleteCountries();\r\n\r\n            FileOutputStream fos = new FileOutputStream(\"Countries.SQL\");\r\n            Gson gson = new Gson();\r\n            String json = gson.toJson(countries);\r\n            fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n            fos.close();\r\n\r\n            return info;\r\n        } else if (command.equals(comandDelete + \" cities\")) {\r\n            String info = deleteCities();\r\n\r\n            FileOutputStream fos = new FileOutputStream(\"Cities.SQL\");\r\n            Gson gson = new Gson();\r\n            String json = gson.toJson(cities);\r\n            fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n            fos.close();\r\n\r\n            return info;\r\n        }\r\n        //\r\n\r\n        if (command.startsWith(comandDelete + \" countries WHERE population\")) {\r\n            if (command.startsWith(comandDelete + \" countries WHERE population < \")) {\r\n                String[] countries1 = command.split(\"<\");\r\n                double pop = Double.parseDouble(countries1[1]);\r\n                String info = findDelete(pop, \"2\");\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Countries.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(countries);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return info;\r\n\r\n            } else if (command.startsWith(comandDelete + \" countries WHERE population > \")) {\r\n                String[] countries1 = command.split(\">\");\r\n                double pop = Double.parseDouble(countries1[1]);\r\n                String info = findDelete(pop, \"1\");\r\n\r\n                for (int i = 0; i < countries.size(); i++) {\r\n                    System.out.println(countries.get(i).toString());\r\n                }\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Countries.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(countries);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return info;\r\n\r\n            }else if(command.startsWith(comandDelete + \" countries WHERE population = \")){\r\n                String[] countries1 = command.split(\"=\");\r\n\r\n                double pop = Double.parseDouble(countries1[1]);\r\n                String info = findDelete(pop, \"=\");\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Countries.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(countries);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return info;\r\n\r\n            }else {\r\n                throw new FormatIncorrect();\r\n            }\r\n        }else if (command.startsWith(comandDelete + \" cities WHERE population\")) {\r\n            if (command.startsWith(comandDelete + \" cities WHERE population < \")) {\r\n                String[] cities1 = command.split(\"<\");\r\n                double pop = Double.parseDouble(cities1[1]);\r\n                String info = findDelete2(pop, \"2\");\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Cities.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(cities);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return info;\r\n\r\n            } else if (command.startsWith(comandDelete + \" cities WHERE population > \")) {\r\n                String[] cities1 = command.split(\">\");\r\n                double pop = Double.parseDouble(cities1[1]);\r\n                String info = findDelete2(pop, \"1\");\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Cities.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(cities);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return info;\r\n\r\n            }else if(command.startsWith(comandDelete + \" cities WHERE population = \")){\r\n                String[] cities1 = command.split(\"=\");\r\n\r\n                double pop = Double.parseDouble(cities1[1]);\r\n                String info = findDelete2(pop, \"=\");\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Cities.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(cities);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return info;\r\n\r\n            }else {\r\n                throw new FormatIncorrect();\r\n            }\r\n        }\r\n\r\n        if (command.startsWith(comandDelete + \" countries WHERE name =\")) {\r\n            String[] countries1 = command.split(\"=\");\r\n\r\n            if ((searchCountries(null, countries1[1], null)) != null) {\r\n                String info = \"\";\r\n\r\n                for (int i = 0; i < countries.size(); i++) {\r\n                    if (countries1[1].equals(countries.get(i).getName())){\r\n                        countries.remove(i);\r\n                    }\r\n                }\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Countries.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(countries);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return \"Countries eliminated\";\r\n            }\r\n        }else if(command.startsWith(comandDelete + \" cities WHERE name =\")){\r\n            String[] cities1 = command.split(\"=\");\r\n\r\n            if ((searchCities(null, cities1[1])) != null) {\r\n                String info = \"\";\r\n\r\n                for (int i = 0; i < cities.size(); i++) {\r\n                    if (cities1[1].equals(cities.get(i).getName())){\r\n                        cities.remove(i);\r\n                    }\r\n                }\r\n\r\n                FileOutputStream fos = new FileOutputStream(\"Cities.SQL\");\r\n                Gson gson = new Gson();\r\n                String json = gson.toJson(cities);\r\n                fos.write(json.getBytes(StandardCharsets.UTF_8));\r\n                fos.close();\r\n\r\n                return \"Cities eliminated\";\r\n            }\r\n        }\r\n\r\n        return \"\";\r\n    }\r\n\r\n    public void saveCities() throws IOException {\r\n        FileOutputStream fos2 = new FileOutputStream(\"Cities.SQL\");\r\n        Gson gson2 = new Gson();\r\n        String json2 = gson2.toJson(cities);\r\n        fos2.write(json2.getBytes(StandardCharsets.UTF_8));\r\n        fos2.close();\r\n    }\r\n\r\n    public String deleteCountries() {\r\n\r\n        String info = \"\";\r\n        for (int i = countries.size() - 1; i >= 0; i--) {\r\n\r\n            countries.remove(i);\r\n            info = \"Countries eliminated\";\r\n        }\r\n\r\n        return info;\r\n    }\r\n\r\n    public String deleteCities() {\r\n\r\n        String info = \"\";\r\n        for (int i = cities.size() - 1; i >= 0; i--){\r\n            cities.remove(i);\r\n            info = \"Cities eliminated\";\r\n        }\r\n\r\n        return info;\r\n    }\r\n\r\n    public String findDelete(double population,String minMax){\r\n\r\n        String info = \"\";\r\n        if (minMax.equals(\"1\")){\r\n            //Mayor\r\n            for (int i = countries.size() - 1; i >= 0; i--) {\r\n                if (countries.get(i).getPopulation() > population) {\r\n                    deletCityNoCountry(countries.get(i));\r\n                    countries.remove(i);\r\n                    info = \"Countries eliminated\";\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"2\")){\r\n            //Menor\r\n            for (int i = countries.size() - 1; i >= 0; i--) {\r\n                if(countries.get(i).getPopulation() < population){\r\n                    countries.remove(i);\r\n                    info = \"Countries eliminated\";\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"=\")) {\r\n            //Igual\r\n            for (int i = countries.size() - 1; i >= 0; i--) {\r\n                if(countries.get(i).getPopulation() == population){\r\n                    countries.remove(i);\r\n                    info = \"Countries eliminated\";\r\n                }\r\n            }\r\n        }\r\n\r\n        return info;\r\n    }\r\n\r\n    public String findDelete2(double population,String minMax){\r\n\r\n        String info = \"\";\r\n        if (minMax.equals(\"1\")){\r\n            //Mayor\r\n            for (int i = cities.size()-1; i >= 0; i--) {\r\n                if(cities.get(i).getPopulation() > population){\r\n                    cities.remove(i);\r\n                    info = \"Cities eliminated\";\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"2\")){\r\n            //Menor\r\n            for (int i = cities.size() - 1; i >= 0; i--) {\r\n                if(cities.get(i).getPopulation() < population){\r\n                    cities.remove(i);\r\n                    info = \"Cities eliminated\";\r\n                }\r\n            }\r\n        }else if (minMax.equals(\"=\")) {\r\n            //Igual\r\n            for (int i = cities.size() - 1; i >= 0; i--) {\r\n                if(cities.get(i).getPopulation() == population){\r\n                    cities.remove(i);\r\n                    info = \"Cities eliminated\";\r\n                }\r\n            }\r\n        }\r\n\r\n        return info;\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Model/Controller.java b/src/Model/Controller.java
+--- a/src/Model/Controller.java	(revision 3ee8c985d8bbf099f0ae32b49c1fadc1c4aaaea1)
++++ b/src/Model/Controller.java	(date 1667357018675)
+@@ -69,7 +69,7 @@
+     }
+ 
+ 
+-    public boolean addCities(String command) throws NotFoundCountryID, FormatIncorrect {
++    public boolean addCities(String command) throws NotFoundCountryID, FormatIncorrect, IDused {
+ 
+         if (command.startsWith(comandInsert + " cities(id, name, countryID, population) VALUES")) {
+             String[] array = command.split("VALUES");
+@@ -82,12 +82,23 @@
+ 
+                 if (searchCountries(arrayValues[2], null, null) != null) {
+                     try {
+-                        cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));
+-                        FileOutputStream fos = new FileOutputStream("Cities.SQL");
+-                        Gson gson = new Gson();
+-                        String json = gson.toJson(cities);
+-                        fos.write(json.getBytes(StandardCharsets.UTF_8));
+-                        fos.close();
++                        int count = 0;
++                        for (int i = 0; i < cities.size(); i++) {
++                            if (arrayValues[0].equals(cities.get(i).getId())) {
++                                count += 1;
++                            }
++                        }
++
++                        if (count == 0) {
++                            cities.add(new City(arrayValues[0], arrayValues[1], arrayValues[2], Double.parseDouble(arrayValues[3])));
++                            FileOutputStream fos = new FileOutputStream("Cities.SQL");
++                            Gson gson = new Gson();
++                            String json = gson.toJson(cities);
++                            fos.write(json.getBytes(StandardCharsets.UTF_8));
++                            fos.close();
++                        }else {
++                            throw new IDused();
++                        }
+                     } catch (IOException e) {
+                         System.out.println("1rata");
+                     }
+@@ -400,7 +411,6 @@
+ 
+             }else if(command.startsWith(comandSelect + " countries WHERE population = ")){
+                 String[] countries1 = command.split("=");
+-
+                 double pop = Double.parseDouble(countries1[1]);
+                 return filter(pop, "=");
+ 
+@@ -471,6 +481,48 @@
+             }
+         }
+ 
++        if (command.startsWith(comandSelect + " cities WHERE country =")) {
++            String[] countries1 = command.split("=");
++
++            if ((searchCountries(null, countries1[1], null)) != null) {
++                String info = "";
++
++                for (int i = 0; i < cities.size(); i++) {
++                    if (searchCountries(null, countries1[1], null).getId().equals(cities.get(i).getCountryID())) {
++                        info += cities.get(i).toString();
++                    }
++                }
++                return "The country has these cities:\n" + info;
++            }
++        }
++
++        if (command.startsWith(comandSelect + " country WHERE id =")) {
++            String[] countries1 = command.split("=");
++
++            if ((searchCountries(countries1[1], null, null)) != null) {
++                String info = "";
++
++                for (int i = 0; i < countries.size(); i++) {
++                    if (countries1[1].equals(countries.get(i).getId())) {
++                        info = countries.get(i).toString();
++                    }
++                }
++                return "The country exists:\n" + info;
++            }
++        } else if (command.startsWith(comandSelect + " cities WHERE id =")) {
++            String[] countries1 = command.split("=");
++
++            if ((searchCities(countries1[1], null)) != null) {
++                String info = "";
++
++                for (int i = 0; i < cities.size(); i++) {
++                    if (countries1[1].equals(cities.get(i).getId())) {
++                        info = cities.get(i).toString();
++                    }
++                }
++                return "The cities exists:\n" + info;
++            }
++        }
+ 
+         return "";
+     }
+@@ -538,6 +590,7 @@
+         //
+         if (command.equals(comandDelete + " countries")) {
+             String info = deleteCountries();
++            deleteCities();
+ 
+             FileOutputStream fos = new FileOutputStream("Countries.SQL");
+             Gson gson = new Gson();
+@@ -545,6 +598,8 @@
+             fos.write(json.getBytes(StandardCharsets.UTF_8));
+             fos.close();
+ 
++            saveCities();
++
+             return info;
+         } else if (command.equals(comandDelete + " cities")) {
+             String info = deleteCities();
+@@ -571,6 +626,8 @@
+                 fos.write(json.getBytes(StandardCharsets.UTF_8));
+                 fos.close();
+ 
++                saveCities();
++
+                 return info;
+ 
+             } else if (command.startsWith(comandDelete + " countries WHERE population > ")) {
+@@ -588,6 +645,8 @@
+                 fos.write(json.getBytes(StandardCharsets.UTF_8));
+                 fos.close();
+ 
++                saveCities();
++
+                 return info;
+ 
+             }else if(command.startsWith(comandDelete + " countries WHERE population = ")){
+@@ -602,6 +661,8 @@
+                 fos.write(json.getBytes(StandardCharsets.UTF_8));
+                 fos.close();
+ 
++                saveCities();
++
+                 return info;
+ 
+             }else {
+@@ -657,7 +718,8 @@
+             String[] countries1 = command.split("=");
+ 
+             if ((searchCountries(null, countries1[1], null)) != null) {
+-                String info = "";
++
++                deletCityNoCountry((searchCountries(null, countries1[1], null)));
+ 
+                 for (int i = 0; i < countries.size(); i++) {
+                     if (countries1[1].equals(countries.get(i).getName())){
+@@ -671,13 +733,14 @@
+                 fos.write(json.getBytes(StandardCharsets.UTF_8));
+                 fos.close();
+ 
++                saveCities();
++
+                 return "Countries eliminated";
+             }
+         }else if(command.startsWith(comandDelete + " cities WHERE name =")){
+             String[] cities1 = command.split("=");
+ 
+             if ((searchCities(null, cities1[1])) != null) {
+-                String info = "";
+ 
+                 for (int i = 0; i < cities.size(); i++) {
+                     if (cities1[1].equals(cities.get(i).getName())){
+@@ -695,6 +758,68 @@
+             }
+         }
+ 
++        if (command.startsWith(comandDelete + " country WHERE id =")) {
++            String[] countries1 = command.split("=");
++
++            if ((searchCountries(countries1[1], null, null)) != null) {
++
++                deletCityNoCountry((searchCountries(countries1[1], null, null)));
++
++                for (int i = 0; i < countries.size(); i++) {
++                    if (countries1[1].equals(countries.get(i).getId())) {
++                        countries.remove(i);
++                    }
++                }
++
++                FileOutputStream fos = new FileOutputStream("Countries.SQL");
++                Gson gson = new Gson();
++                String json = gson.toJson(countries);
++                fos.write(json.getBytes(StandardCharsets.UTF_8));
++                fos.close();
++
++                saveCities();
++
++                return "Country eliminated";
++            }
++        } else if (command.startsWith(comandDelete + " cities WHERE id =")) {
++            String[] cities1 = command.split("=");
++
++            if ((searchCities(cities1[1], null)) != null) {
++
++                for (int i = 0; i < cities.size(); i++) {
++                    if (cities1[1].equals(cities.get(i).getId())) {
++                        cities.remove(i);
++                    }
++                }
++
++                FileOutputStream fos = new FileOutputStream("Cities.SQL");
++                Gson gson = new Gson();
++                String json = gson.toJson(cities);
++                fos.write(json.getBytes(StandardCharsets.UTF_8));
++                fos.close();
++
++                return "City eliminated";
++            }
++        }
++
++        if (command.startsWith(comandDelete + " cities WHERE country =")) {
++            String[] citiesOfCountries = command.split("=");
++            Country countries1 = searchCountries(null,citiesOfCountries[1],null);
++            for (int i = cities.size() - 1; i >= 0; i--) {
++                if (countries1.getId().equals(cities.get(i).getCountryID())) {
++                    cities.remove(i);
++                }
++            }
++
++            FileOutputStream fos = new FileOutputStream("Cities.SQL");
++            Gson gson = new Gson();
++            String json = gson.toJson(cities);
++            fos.write(json.getBytes(StandardCharsets.UTF_8));
++            fos.close();
++
++            return "\nCities from " + citiesOfCountries[1].replaceAll(" ", "") + " eliminated\n";
++        }
++
+         return "";
+     }
+ 
+@@ -744,7 +869,8 @@
+         }else if (minMax.equals("2")){
+             //Menor
+             for (int i = countries.size() - 1; i >= 0; i--) {
+-                if(countries.get(i).getPopulation() < population){
++                if (countries.get(i).getPopulation() < population) {
++                    deletCityNoCountry(countries.get(i));
+                     countries.remove(i);
+                     info = "Countries eliminated";
+                 }
+@@ -752,7 +878,8 @@
+         }else if (minMax.equals("=")) {
+             //Igual
+             for (int i = countries.size() - 1; i >= 0; i--) {
+-                if(countries.get(i).getPopulation() == population){
++                if (countries.get(i).getPopulation() == population) {
++                    deletCityNoCountry(countries.get(i));
+                     countries.remove(i);
+                     info = "Countries eliminated";
+                 }
