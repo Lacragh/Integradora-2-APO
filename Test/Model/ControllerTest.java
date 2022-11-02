@@ -92,12 +92,15 @@ class ControllerTest {
     }
 
     @Test
-    public void selectTest1(){
+    public void selectTest1ToShowAllCitiesFromACountry(){
         stage3();
 
         assertEquals("""
                 The Cities exist:
                 ----------------
+                Name:  'Buga'
+                Population: 1.0
+                --------------------------------
                 Name:  'Bogota'
                 Population: 2.2
                 --------------------------------
@@ -111,11 +114,21 @@ class ControllerTest {
     }
 
     @Test
-    public void selectTest2(){
+    public void selectTest2VerifyThatTheProgramCanOrganizeByName(){
         stage3();
         
 
-        assertEquals("a",controller.orderBy("SELECT * FROM cities WHERE population > 2 ORDER BY name"));
+        assertEquals("""
+                ----------------
+                Name:  'Bogota'
+                Population: 2.2
+                --------------------------------
+                Name:  'Cali'
+                Population: 2.2
+                --------------------------------
+                Name:  'Medellin'
+                Population: 2.2
+                ----------------""",controller.orderBy("SELECT * FROM cities WHERE population > 2 ORDER BY name"));
 
 
     }
