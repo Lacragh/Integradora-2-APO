@@ -353,7 +353,151 @@ public class Controller {
             }
         }
 
-        //PAISES Y CIUDADES POR BY NAME
+        // Paises y ciudades por By ID
+
+        if (command.contains("<") && command.contains("countries") && command.contains("id")) {
+            String[] orderby = command.split("<");
+            if (orderby[1].contains("ORDER BY id")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<Country> countryOrder = new ArrayList<>();
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        countryOrder.add(countries.get(i));
+                    }
+                }
+                Collections.sort(countryOrder, (a, b) -> {
+                    return a.getId().compareTo(b.getId());
+                });
+                for (int i = 0; i < countryOrder.size(); i++) {
+                    info += countryOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains(">") && command.contains("countries") && command.contains("id")) {
+            String[] orderby = command.split(">");
+            if (orderby[1].contains("ORDER BY id")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<Country> countryOrder = new ArrayList<>();
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        countryOrder.add(countries.get(i));
+                    }
+                }
+                Collections.sort(countryOrder, (a, b) -> {
+                    return a.getId().compareTo(b.getId());
+                });
+                for (int i = 0; i < countryOrder.size(); i++) {
+                    info += countryOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains("<") && command.contains("cities")&& command.contains("id")) {
+            String[] orderby = command.split("<");
+            if (orderby[1].contains("ORDER BY id")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<City> cityOrder = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        cityOrder.add(cities.get(i));
+                    }
+                }
+                Collections.sort(cityOrder, (a, b) -> {
+                    return a.getId().compareTo(b.getId());
+                });
+                for (int i = 0; i < cityOrder.size(); i++) {
+                    info += cityOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains(">") && command.contains("cities")&& command.contains("id")) {
+            String[] orderby = command.split(">");
+            if (orderby[1].contains("ORDER BY id")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<City> cityOrder = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        cityOrder.add(cities.get(i));
+                    }
+                }
+                Collections.sort(cityOrder, (a, b) -> {
+                    return a.getId().compareTo(b.getId());
+                });
+                for (int i = 0; i < cityOrder.size(); i++) {
+                    info += cityOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        // Paises by countryCode
+
+        if (command.contains("<") && command.contains("countries") && command.contains("countryCode")) {
+            String[] orderby = command.split("<");
+            if (orderby[1].contains("ORDER BY countryCode")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<Country> countryOrder = new ArrayList<>();
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        countryOrder.add(countries.get(i));
+                    }
+                }
+                Collections.sort(countryOrder, (a, b) -> {
+                    return a.getCountryCode().compareTo(b.getCountryCode());
+                });
+                for (int i = 0; i < countryOrder.size(); i++) {
+                    info += countryOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        if (command.contains(">") && command.contains("countries") && command.contains("countryCode")) {
+            String[] orderby = command.split(">");
+            if (orderby[1].contains("ORDER BY countryCode")) {
+                String[] orderby2 = orderby[1].split(" ");
+                ArrayList<Country> countryOrder = new ArrayList<>();
+                for (int i = 0; i < countries.size(); i++) {
+                    if (countries.get(i).getPopulation() < Integer.parseInt(orderby2[1])) {
+                        countryOrder.add(countries.get(i));
+                    }
+                }
+                Collections.sort(countryOrder, (a, b) -> {
+                    return a.getCountryCode().compareTo(b.getCountryCode());
+                });
+                for (int i = 0; i < countryOrder.size(); i++) {
+                    info += countryOrder.get(i).toString();
+                }
+                return info;
+
+            }
+
+
+        }
+
+        // Ciudades por CountryID
+
+        //PAISES Y CIUDADES POR BY population
 
         if (command.contains("<") && command.contains("countries") && command.contains("population")) {
             String[] orderby = command.split("<");
@@ -508,6 +652,8 @@ public class Controller {
             }
 
         }
+
+
 
         return "";
     }
